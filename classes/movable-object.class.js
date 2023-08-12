@@ -5,6 +5,7 @@ class MovableObject {
     height = 100;
     width = 100;
     speed = 0.1;
+    otherDirection = false;
     
     imageCache = {};
 
