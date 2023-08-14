@@ -33,19 +33,17 @@ const level1 = new Level(
     ],
 
     [
-        new bottle(),
-        new bottle(),
-        new bottle(),
-        new bottle(),
+        new collectableObject('../img/6_salsa_bottle/salsa_bottle.png'),
+        new collectableObject('../img/6_salsa_bottle/salsa_bottle.png'),
+        new collectableObject('../img/6_salsa_bottle/salsa_bottle.png'),
+        new collectableObject('../img/6_salsa_bottle/salsa_bottle.png'),
+        new collectableObject('../img/8_coin/coin_1.png'),
+        new collectableObject('../img/8_coin/coin_2.png'),
+        new collectableObject('../img/8_coin/coin_1.png'),
+        new collectableObject('../img/8_coin/coin_2.png'),
+        
        
     ],
 
-    [
-        new coin(),
-        new coin(),
-        new coin(),
-        new coin(),
-       
-    ]
 
 );

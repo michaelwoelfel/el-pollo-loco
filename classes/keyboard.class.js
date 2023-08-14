@@ -4,6 +4,7 @@ class Keyboard {
     DOWN = false;
     UP = false;
     SPACE = false;
+    TRHOW = false;
 
 }
 
@@ -12,6 +13,7 @@ if (event['key'] == "a" || event['key'] == "ArrowLeft" ) keyboard.LEFT = true;
 if (event['key'] == "d" || event['key'] == "ArrowRight" ) keyboard.RIGHT= true;
 if (event['key'] == "w" || event['key'] == "ArrowUp" ) keyboard.UP = true;
 if (event['key'] == "s" || event['key'] == "ArrowDown" ) keyboard.DOWN = true;
+if (event['key'] == "e") keyboard.THROW = true;
 if (event['key'] == " ") keyboard.SPACE = true; 
 });
 
@@ -21,5 +23,6 @@ document.addEventListener('keyup', (event) => {
     if (event['key'] == "d" || event['key'] == "ArrowRight" ) keyboard.RIGHT= false;
     if (event['key'] == "w" || event['key'] == "ArrowUp" ) keyboard.UP = false;
     if (event['key'] == "s" || event['key'] == "ArrowDown" ) keyboard.DOWN = false;
+    if (event['key'] == "e") keyboard.THROW = false;
     if (event['key'] == " ") keyboard.SPACE = false; 
     });

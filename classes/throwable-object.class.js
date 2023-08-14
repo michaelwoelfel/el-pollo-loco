@@ -12,11 +12,7 @@ class bottle extends MovableObject {
         '../img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png',
     ];
     
-    constructor(){
-        let randomNumber = Math.random() < 0.5 ? 1 : 2;
-        super().loadImage(`../img/6_salsa_bottle/${randomNumber}_salsa_bottle_on_ground.png`);
-        this.x = 220 + Math.random() * 500;
-    }
+  
 
 
 }

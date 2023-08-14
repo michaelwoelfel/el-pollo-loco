@@ -6,10 +6,13 @@ class World {
     clouds = level1.clouds;
     backgroundObjects = level1.backgroundObjects;
     throwableObjects = level1.throwableObjects;
-    coins = level1.coins;
+    collectableObjects = level1.collectableObjects;
     keyboard;
     camera_x = 0;
-    statusBar =  new Statusbar();
+    statusBarHealth =   new statusbarHealth();
+    statusBarCoin =  new statusbarCoin();
+    statusBarBottle =  new statusbarBottle();
+  
 
 
 
@@ -27,7 +30,7 @@ class World {
            this.level.enemies.forEach((enemy)=> {
             if(this.character.isColliding(enemy)) {
                 this.character.hit();
-                this.statusBar.setPercantage(this.character.energy);
+                this.statusBarHealth.setPercantage(this.character.energy);
             }
            });
         }, 200);
@@ -43,15 +46,17 @@ class World {
         this.addObjectstoMap(this.level.backgroundObjects, this.x);
         
         this.addToMap(this.character);
-        this.addObjectstoMap(this.throwableObjects);
-        this.addObjectstoMap(this.coins);
+      
+        this.addObjectstoMap(this.collectableObjects);
 
 
         this.addObjectstoMap(this.enemies);
 
         this.addObjectstoMap(this.clouds);
         this.ctx.translate(-this.camera_x, 0);
-        this.addToMap(this.statusBar);
+        this.addToMap(this.statusBarHealth);
+        this.addToMap(this.statusBarCoin);
+        this.addToMap(this.statusBarBottle);
         this.ctx.translate(this.camera_x, 0);
         this.ctx.translate(-this.camera_x, 0);
         
