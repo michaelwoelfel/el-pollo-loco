@@ -5,13 +5,14 @@ class World {
     enemies = level1.enemies;
     clouds = level1.clouds;
     backgroundObjects = level1.backgroundObjects;
-    throwableObjects = level1.throwableObjects;
+    throwableObjects = new bottle();
     collectableObjects = level1.collectableObjects;
     keyboard;
     camera_x = 0;
     statusBarHealth =   new statusbarHealth();
     statusBarCoin =  new statusbarCoin();
     statusBarBottle =  new statusbarBottle();
+  
   
 
 
@@ -43,12 +44,13 @@ class World {
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0);
+        
         this.addObjectstoMap(this.level.backgroundObjects, this.x);
         
         this.addToMap(this.character);
-      
+        
         this.addObjectstoMap(this.collectableObjects);
-
+        
 
         this.addObjectstoMap(this.enemies);
 
@@ -58,6 +60,7 @@ class World {
         this.addToMap(this.statusBarCoin);
         this.addToMap(this.statusBarBottle);
         this.ctx.translate(this.camera_x, 0);
+        
         this.ctx.translate(-this.camera_x, 0);
         
 

@@ -8,7 +8,7 @@ class statusbarHealth extends DrawableObject {
         '../img/7_statusbars/1_statusbar/2_statusbar_health/green/40.png',
         '../img/7_statusbars/1_statusbar/2_statusbar_health/green/60.png',
         '../img/7_statusbars/1_statusbar/2_statusbar_health/green/80.png',
-        '../img/7_statusbars/1_statusbar/2_statusbar_health/green/100.png',
+        '../img/7_statusbars/1_statusbar/2_statusbar_health/green/100.png'
     ];
 
     
@@ -17,7 +17,7 @@ class statusbarHealth extends DrawableObject {
         this.loadImages(this.IMAGES_STATUSBAR_HEALTH);
         this.setPercantage(100);
         this.x = 10;
-        this.y = 5;
+        this.y = 0;
         this.width = 100;
         this.height = 50;
     }
@@ -28,6 +28,7 @@ class statusbarHealth extends DrawableObject {
         if (this.percentage == 100);
         let path =  this.IMAGES_STATUSBAR_HEALTH[this.resolveImageIndex()];
         this.img = this.imageCache[path];
+    
 
     }
 
@@ -43,6 +44,8 @@ class statusbarHealth extends DrawableObject {
         } else if (this.percentage > 40) {
             return 2;
         } else if (this.percentage > 20) {
+            return 1;
+        } else if (this.percentage > 1) {
             return 1;
         } else if (this.percentage == 0) {
             return 0;
