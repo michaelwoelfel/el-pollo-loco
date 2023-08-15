@@ -6,7 +6,8 @@ class MovableObject extends DrawableObject {
     acceleration = 5;
     energy = 100;
     lastHit = 0;
-
+    coinCount = 0;
+    bottleCount = 0;
  
 
     applyGravity() {
@@ -19,8 +20,11 @@ class MovableObject extends DrawableObject {
     }
 
     isAboveGround() {
-        return this.y < 130;
 
+        if (this instanceof bottle) {
+            return true} else {
+        return this.y < 130;
+    }
     }
 
 

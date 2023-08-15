@@ -1,7 +1,8 @@
 class bottle extends MovableObject {
 
-
-    speedyY = 30;
+    x = -500;
+    y = 100;
+    speedY = 30;
     speedX = 20;
     IMAGES_BOTTLE = [
         '../img/6_salsa_bottle/1_salsa_bottle_on_ground.png',
@@ -14,9 +15,22 @@ class bottle extends MovableObject {
         '../img/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png',
         '../img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png',
     ];
+
+    constructor(x,y) {
+        super().loadImage('../img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');
+        this.x = x;
+        this.y = y;
+        this.throw();
+       
+    }
     
   throw() {
-
+      
+        this.speedY = 30;
+        this.applyGravity();
+        setInterval(()=>{
+            this.x += 10;
+        },50);
   }
 
 

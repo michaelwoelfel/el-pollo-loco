@@ -18,7 +18,7 @@ class statusbarHealth extends DrawableObject {
         this.setPercantage(100);
         this.x = 10;
         this.y = 0;
-        this.width = 100;
+        this.width = 150;
         this.height = 50;
     }
 

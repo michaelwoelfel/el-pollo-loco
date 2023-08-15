@@ -89,7 +89,7 @@ constructor(){
         
    
 
-    this.an
+   
     this.x = 20;
     this.y = 80;
     this.height = 300;

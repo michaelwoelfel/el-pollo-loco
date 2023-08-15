@@ -1,6 +1,6 @@
 class statusbarBottle extends DrawableObject {
 
-    percentage = 100;
+    bottleCount = 0;
 
     IMAGES_STATUSBAR_BOTTLE = [
         '../img/7_statusbars/1_statusbar/3_statusbar_bottle/green/0.png',
@@ -13,19 +13,19 @@ class statusbarBottle extends DrawableObject {
 
     
     constructor() {
-        super().loadImage('../img/7_statusbars/1_statusbar/3_statusbar_bottle/green/100.png');
+        super().loadImage('../img/7_statusbars/1_statusbar/3_statusbar_bottle/green/0.png');
         this.loadImages(this.IMAGES_STATUSBAR_BOTTLE);
       
         this.x = 10;
-        this.y = 80;
-        this.width = 100;
+        this.y = 72;
+        this.width = 150;
         this.height = 50;
     }
 
 
-    setPercantageBottle(percentage) {
-        this.percentage = percentage;
-        if (this.percentage == 100);
+    setPercantage(percentageCoin) {
+        this.percentage = percentageCoin;
+        if (this.bottleCount == 0);
         let path =  this.IMAGES_STATUSBAR_BOTTLE[this.resolveImageIndex()];
         this.img = this.imageCache[path];
 
@@ -33,18 +33,18 @@ class statusbarBottle extends DrawableObject {
 
 
     resolveImageIndex() {
-        if (this.percentage == 100) {
+        if (this.bottleCount == 10) {
             return 5;
-        } else if (this.percentage > 80) {
+        } else if (this.bottleCount > 8) {
             return 4;
 
-        } else if (this.percentage > 60) {
-            return 3;
-        } else if (this.percentage > 40) {
+        } else if (this.bottleCount > 6) {
+            return 3;d
+        } else if (this.bottleCount > 4) {
             return 2;
-        } else if (this.percentage > 20) {
-            return 1;
-        } else if (this.percentage == 0) {
+        } else if (this.bottleCount > 2) {
+            return 1;dd
+        } else if (this.bottleCount >= 0) {
             return 0;
         }
     }
