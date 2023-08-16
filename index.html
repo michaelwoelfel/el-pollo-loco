@@ -5,37 +5,40 @@
     <link rel="icon" type="image/x-icon" href="favicon.jpg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <script src="classes/drawable-object.class.js"></script>
-    <script src="classes/movable-object.class.js"></script>
-    <script src="classes/throwable-object.class.js"></script>
-    <script src="classes/collectable-object.class.js"></script>
-
-    
-    <script src="classes/chicken.class.js"></script>
-    <script src="classes/character.class.js"></script>
-    <script src="classes/cloud.class.js"></script>
-    <script src="classes/background-object.class.js"></script>
-    <script src="classes/status-bar-bottle.class.js"></script>
-    <script src="classes/status-bar-coin.class.js"></script>
-    <script src="classes/status-bar-health.class.js"></script>
-    
-    <script src="classes/world.class.js"></script>
-    <script src="classes/keyboard.class.js"></script>
-    <script src="classes/level.class.js"></script>
-    <script src="classes/endboss.class.js"></script>
-    
    
-    <script src="levels/level1.js"></script>
-    
-    <script src="js/game.js"></script>
     
     <title>El Pollo Loco</title>
 </head>
 <body onload="init()">
-    <h1>El pollo Loco</h1>
-
+    <h1 onclick="initLevel()">El pollo Loco</h1>
+    <div class="buttoncontainer-top"><div class="container-right"><img id="play" class="button" src='img/play.png'><img  id="mute" class="button" src='img/sound.png'><img id="eye" class="button" src='img/eye.png'></div></div>
     <canvas id="canvas" width="720" height="480">
-
     </canvas>
+    <div class="buttoncontainer-bottom"><div class="containerleft"><img id="left" class="button" src='img/left.png'><img id="right" class="button" src='img/right.png'></div><div class="container-right"><img id="jump" class="button" src='img/up.png'><img id="throw" class="button" src='img/throw.png'></div></div>
+
 </body>
+<script src="classes/drawable-object.class.js"></script>
+<script src="classes/movable-object.class.js"></script>
+<script src="classes/throwable-object.class.js"></script>
+<script src="classes/collectable-object.class.js"></script>
+
+
+<script src="classes/chicken.class.js"></script>
+<script src="classes/character.class.js"></script>
+<script src="classes/cloud.class.js"></script>
+<script src="classes/background-object.class.js"></script>
+<script src="classes/status-bar-bottle.class.js"></script>
+<script src="classes/status-bar-coin.class.js"></script>
+<script src="classes/status-bar-health.class.js"></script>
+
+<script src="classes/world.class.js"></script>
+<script src="classes/keyboard.class.js"></script>
+<script src="classes/level.class.js"></script>
+<script src="classes/endboss.class.js"></script>
+
+
+<script src="levels/level1.js"></script>
+
+<script src="js/game.js"></script>
+
 </html>

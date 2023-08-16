@@ -6,7 +6,8 @@ class DrawableObject {
     y = 310;
     height = 100;
     width = 100;
-  
+    
+     
 
 
         loadImage(path) {
@@ -20,6 +21,7 @@ class DrawableObject {
             ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
         } catch(e) {
             console.log(this.img);
+           
         }
         }
 

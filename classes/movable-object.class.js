@@ -1,5 +1,5 @@
 class MovableObject extends DrawableObject {
-  
+    
     speed = 0.1;
     otherDirection = false;
     speedY = 0;
@@ -8,14 +8,24 @@ class MovableObject extends DrawableObject {
     lastHit = 0;
     coinCount = 0;
     bottleCount = 0;
+    
  
 
+
+    world;
+
+    setWorld(world) {
+        this.world = world;
+      
+    }
+    
     applyGravity() {
         setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
+           
         }, 1000 / 25);
     }
 

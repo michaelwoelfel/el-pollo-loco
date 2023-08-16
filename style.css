@@ -34,6 +34,29 @@ canvas {
     margin: 10px;
 }
 
+.buttoncontainer-top {
+    position: absolute;
+    top: 27%;
+    left: 60%;
+}
+
+.buttoncontainer-bottom {
+    position: absolute;
+    top: 90%;
+    display: flex;
+    justify-content: space-between;
+    width: 40%;
+}
+
+.button {
+    width: 60px;
+    background-color: orange;
+    border: 2px solid black;
+    height: 60px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
 @media only screen and (max-width: 720px) {
     canvas {
        width: 100%;
