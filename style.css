@@ -57,6 +57,30 @@ canvas {
     cursor: pointer;
 }
 
+#startimage{
+    position: absolute;
+    width: 720px;
+    height: 480px;
+    top: 26%;
+    border-radius: 10px;
+}
+
+#endImage{
+    position: absolute;
+    width: 720px;
+    height: 480px;
+    top: 26%;
+    border-radius: 10px;
+    display: none;
+}
+
+.d-none {
+    display: none;
+}
+.d-flex {
+    display: flex!important;
+}
+
 @media only screen and (max-width: 720px) {
     canvas {
        width: 100%;
