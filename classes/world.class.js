@@ -59,7 +59,7 @@ class World {
         this.throwableObjects.forEach((throwable) => {
             if (throwable.isColliding(this.endboss)) {
                 this.statusBarEndboss.healthEndboss -= 30;
-                this.endboss.hit();
+                this.endboss.bossHit();
                 this.statusBarEndboss.setPercantage(this.statusBarEndboss.healthEndboss);
                 if (this.statusBarEndboss.healthEndboss <= 0 ) {
                     this.statusBarEndboss.healthEndboss = 0;

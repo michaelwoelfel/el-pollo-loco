@@ -6,8 +6,10 @@ class MovableObject extends DrawableObject {
     acceleration = 5;
     energy = 100;
     lastHit = 0;
+    lastHitBoss = 0;
     coinCount = 0;
     bottleCount = 0;
+    energyBoss = 100;
     
  
 
@@ -64,6 +66,15 @@ class MovableObject extends DrawableObject {
         this.lastHit = new Date().getTime();
     }
 
+    bossHit() {
+        this.energyBoss -= 30;
+       
+        if (this.energyBoss < 0) {
+            this.energyBoss = 0;
+        }
+        this.lastHitBoss = new Date().getTime();
+    }
+
     isColliding(mo) {
         return this.x + this.width > mo.x && 
         this.y + this.height > mo.y &&
@@ -89,9 +100,19 @@ class MovableObject extends DrawableObject {
         return timepassed < 2;
     }
 
+    bossIsHurt() {
+        let timepassed = new Date().getTime() - this.lastHitBoss;
+        timepassed = timepassed / 1000;
+        return timepassed < 2;
+    }
+
     isDead() {
-        return this.energy == 0;
+        return this.energy <= 0;
         
+    }
+
+    bossIsDead() {
+        return this.energyBoss <= 0;
     }
 
 }

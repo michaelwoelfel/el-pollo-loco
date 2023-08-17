@@ -79,41 +79,29 @@ class Endboss extends MovableObject {
     
     animate() {
         let i = 0;
-        setInterval(() =>{
-           
-            if (i < 40) { 
+        setInterval(() => {
+            if (this.bossIsDead()) {
+                this.playAnimation(this.IMAGES_DEAD);
+            } else if (this.bossIsHurt()) {
+                this.playAnimation(this.IMAGES_HURT);
+            } else if (i < 40) {
                 this.playAnimation(this.IMAGES_ALERT);
                 setTimeout(() => {
                     this.playAnimation(this.IMAGES_ATTACK);
-                }, 2000);  
-            }else {
-            this.playAnimation(this.IMAGES_WALKING);
-        }
-            
-        if (this.world.statusBarEndboss.healthEndboss <= 0 ) {
-            this.playAnimation(this.IMAGES_DEAD);
-        }
-       
-      
-       if (this.world.character.x == 1300) {
-         i = 0;
-       }
-       i++;
-     
-       
-        },100);
+                }, 2000);
+            } else {
+                this.playAnimation(this.IMAGES_WALKING);
+            }
     
+            if (this.world.character.x == 1300) {
+                i = 0;
+            } else {
+                i++;
+            }
+        }, 100);
     }
     
     
-    
-ishurt(){
-    setInterval(() =>{
-           
-        this.playAnimation(this.IMAGES_HURT);
-   
-    },100);
-}
 
 
 };
