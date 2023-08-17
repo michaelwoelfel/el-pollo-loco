@@ -3,6 +3,7 @@ class World {
     level = level1;
     character = new Character();
     enemies = level1.enemies;
+    endboss = new Endboss();
     clouds = level1.clouds;
     backgroundObjects = level1.backgroundObjects;
     throwableObjects = [];
@@ -12,6 +13,7 @@ class World {
     statusBarHealth = new statusbarHealth();
     statusBarCoin = new statusbarCoin();
     statusBarBottle = new statusbarBottle();
+    statusBarEndboss = new statusbarEndboss();
     coinCount = 0;
 
 
@@ -48,8 +50,27 @@ class World {
         this.checkCollisionEnemy();
         this.checkCollisionCollectable();
         this.checkIfChickenIsDead();
+        this.checkCollisionBottleEndboss() 
 
     }
+
+
+    checkCollisionBottleEndboss() {
+        this.throwableObjects.forEach((throwable) => {
+            if (throwable.isColliding(this.endboss)) {
+                this.statusBarEndboss.healthEndboss -= 30;
+                this.endboss.hit();
+                this.statusBarEndboss.setPercantage(this.statusBarEndboss.healthEndboss);
+                if (this.statusBarEndboss.healthEndboss <= 0 ) {
+                    this.statusBarEndboss.healthEndboss = 0;
+                }
+            }
+        });
+    }
+    
+       
+    
+    
 
     checkCollisionEnemy() {
 
@@ -89,7 +110,6 @@ class World {
                     this.removeCollectable(object);
                     this.statusBarBottle.setPercantage(this.statusBarBottle.bottleCount);
                 }
-
             }
         });
     }
@@ -122,18 +142,18 @@ class World {
     setWorld() {
         this.enemies.forEach(enemy => {
             enemy.setWorld(this);
-            if (enemy instanceof Endboss) {
-                enemy.startAnimation();
-            }
             if (enemy instanceof Chicken) {
                 enemy.startAnimationChicken();
             }
         });
-
+        this.endboss.setWorld(this); 
+        if (this.endboss instanceof Endboss) { 
+            this.endboss.startAnimation();
+        }
+    
         this.character.setWorld(this);
-
     }
-
+    
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -141,6 +161,7 @@ class World {
 
         this.addObjectstoMap(this.level.backgroundObjects, this.x);
         this.addObjectstoMap(this.enemies);
+        this.addToMap(this.endboss);
 
         this.addToMap(this.character);
 
@@ -154,8 +175,10 @@ class World {
         this.addToMap(this.statusBarHealth);
         this.addToMap(this.statusBarCoin);
         this.addToMap(this.statusBarBottle);
+     
         this.ctx.translate(this.camera_x, 0);
         this.addObjectstoMap(this.throwableObjects);
+        this.addToMap(this.statusBarEndboss);
         this.ctx.translate(-this.camera_x, 0);
 
 
