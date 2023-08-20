@@ -89,16 +89,19 @@ class World {
 
     checkIfChickenIsDead() {
         this.level.enemies.forEach((enemy) => {
-            let isCollidingOnX = this.character.x + this.character.width > enemy.x &&
-                this.character.x < enemy.x + enemy.width;
-            let isAboveChicken = this.character.y + this.character.height <= enemy.y;
+            let isCollidingOnX = this.character.x + this.character.width > enemy.x && 
+                                 this.character.x < enemy.x + enemy.width;
+                                 
+            let isAboveEnemy = this.character.y + this.character.height <= enemy.y;
             let isFallingDown = this.character.speedY > 0;
-            if (isCollidingOnX && isAboveChicken && isFallingDown ) {
+    
+            if (isCollidingOnX && isAboveEnemy && isFallingDown) {
                 this.killEnemy(enemy);
-                this.character.velocityY = 0; 
+                this.character.velocityY = 0;
             }
         });
     }
+    
     
 
 
@@ -150,7 +153,7 @@ class World {
     setWorld() {
         this.enemies.forEach(enemy => {
             enemy.setWorld(this);
-            if (enemy instanceof Chicken) {
+            if (enemy instanceof Chicken || enemy instanceof smallChicken) {
                 enemy.startAnimationChicken();
             }
         });

@@ -72,7 +72,7 @@ class MovableObject extends DrawableObject {
         if (this.energyBoss < 0) {
             this.energyBoss = 0;
         }
-        this.lasthitb = new Date().getTime();
+        this.lasthit = new Date().getTime();
     }
 
     isColliding(mo) {
@@ -91,7 +91,7 @@ class MovableObject extends DrawableObject {
     }
 
     jump() {
-        this.speedY = 30;
+        this.speedY = 40;
     }
 
     isHurt() {
