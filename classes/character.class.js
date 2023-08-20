@@ -120,7 +120,7 @@ interactiveAnimations() {
         }
         else if(this.isAboveGround()) {
             this.playAnimation(this.IMAGES_JUMP);
-            this.jump_sound.play();
+            if (!media_muted) { this.jump_sound.play();  }  
         }
         else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
             this.playAnimation(this.IMAGES_WALKING);
@@ -134,10 +134,10 @@ movingAnimations() {
     setInterval(()=>{
         if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
            this.moveRight();
-           this.walking_sound.play();}
+           if (!media_muted) { this.walking_sound.play();}}
         if (this.world.keyboard.LEFT && this.x >= 0 ) {
           this.moveLeft();
-            this.walking_sound.play();}
+          if (!media_muted) { this.walking_sound.play();}}
         this.world.camera_x = -this.x +100;
         if (this.world.keyboard.UP && !this.isAboveGround() ||   this.world.keyboard.SPACE && !this.isAboveGround()) {
           this.jump();

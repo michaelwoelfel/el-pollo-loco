@@ -63,7 +63,7 @@ class World {
             if (throwable.isColliding(this.endboss)) {
                 this.statusBarEndboss.healthEndboss -= 30;
                 this.endboss.bossHit();
-                this.smashBottle_sound.play();
+                if (!media_muted) {this.smashBottle_sound.play();} 
                 this.statusBarEndboss.setPercantage(this.statusBarEndboss.healthEndboss);
                 if (this.statusBarEndboss.healthEndboss <= 0 ) {
                     this.statusBarEndboss.healthEndboss = 0;
@@ -108,13 +108,13 @@ class World {
         this.level.collectableObjects.forEach((object) => {
             if (this.character.isColliding(object)) {
                 if (object.img.currentSrc.includes('coin')) {
-                    this.coin_sound.play();
+                    if (!media_muted) {this.coin_sound.play();  } 
                     this.statusBarCoin.coinCount++;
                     this.removeCollectable(object);
                     this.statusBarCoin.setPercantage(this.statusBarCoin.coinCount);
                 } else if (object.img.currentSrc.includes('bottle')) {
-                    this.statusBarBottle.bottleCount++;
-                   this.grabBottle_sound.play();
+                    this.statusBarBottle.bottleCount++; 
+                   if (!media_muted) {this.grabBottle_sound.play();  } 
                     this.removeCollectable(object);
                     this.statusBarBottle.setPercantage(this.statusBarBottle.bottleCount);
                 }

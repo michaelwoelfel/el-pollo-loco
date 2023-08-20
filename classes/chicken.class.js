@@ -72,7 +72,10 @@ class Chicken  extends MovableObject{
             this.deathInterval = setInterval(() => {
                 this.playAnimation(this.IMAGES_DEAD);
             }, 100);
-            this.chickenDeadSound.play();
+            if (!media_muted) {
+                this.chickenDeadSound.play();
+            }
+           
         }
         
 

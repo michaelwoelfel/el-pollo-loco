@@ -2,13 +2,17 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let theme = new Audio('audio/theme.mp3')
+let media_muted = false;
 
 
 async function init() {
     canvas = document.getElementById('canvas');
     
     world = new World(canvas, keyboard);
-    theme.play();
+    if (media_muted == false) {
+        theme.play();
+    }
+    
     document.getElementById('startimage').classList.add('d-none');
     document.getElementById('startbutton').classList.add('d-none');
 
@@ -43,6 +47,25 @@ function remove() {
    
 
 }
+
+
+function muteSound() {
+    let img = document.getElementById('mute');
+    
+    if (media_muted) {
+        theme.volume = 1;
+        img.src = 'img/sound_on.png';  // Bild für eingeschalteten Ton
+    } else {
+        theme.volume = 0;
+        img.src = 'img/sound.png'; // Bild für stummgeschalteten Ton
+    }
+
+    media_muted = !media_muted; 
+    console.log(media_muted);
+}
+
+
+
 
 
 
