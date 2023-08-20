@@ -46,6 +46,7 @@ canvas {
     display: flex;
     justify-content: space-between;
     width: 40%;
+    display: none;
 }
 
 .button {
@@ -65,17 +66,71 @@ canvas {
     border-radius: 10px;
 }
 
-#endImage{
+#startbutton {
+    position: absolute;
+    top: 30%;
+    font-size: 25px;
+    background-color: #F1BA1C;
+    align-items: center;
+    justify-content: center;
+    height: 70px;
+    display: flex;
+    border-radius: 10px;
+}
+
+#restartButton {
+    position: absolute;
+    top: 20%;
+    font-size: 25px;
+    background-color: #F1BA1C;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70px;
+    border-radius: 10px;
+    z-index: 3;
+   
+}
+
+#restartButton:hover {
+    cursor: pointer;
+}
+
+#startbutton:hover {
+    cursor: pointer;
+}
+
+#endImageContainer{
     position: absolute;
     width: 720px;
     height: 480px;
     top: 26%;
     border-radius: 10px;
-    display: none;
+    justify-content: center;
+    display: flex;
+    
 }
 
+#endImage1{
+    position: absolute;
+    width: 720px;
+    height: 480px;
+    border-radius: 10px;
+    
+}
+
+#endImage2{
+    position: absolute;
+    width: 720px;
+    height: 480px;
+ 
+    border-radius: 10px;
+    
+}
+
+
 .d-none {
-    display: none;
+    display: none!important;
 }
 .d-flex {
     display: flex!important;
@@ -84,6 +139,19 @@ canvas {
 @media only screen and (max-width: 720px) {
     canvas {
        width: 100%;
+    }
+
+    #endImageContainer {
+        width: 100%;
+    }
+
+    #startimage {
+        width: 100%;
+        top: 12.5%;
+    }
+
+    #startbutton {
+        top: 20%;
     }
     h1 {
         display: none;
@@ -96,10 +164,27 @@ canvas {
 
 @media only screen and (max-height: 480px) {
     canvas {
+        height: 100vh;
+    }
+    #endImageContainer {
         height: 100%;
+    }
+
+    #startimage {
+        height: 100vh;
+        
     }
 
     body {
         height: 100vh;
     }
 }
+
+
+@media only screen and (max-width: 400px) {
+    .buttoncontainer-bottom {
+        display: flex;
+        width: 90%;
+    }
+}
+

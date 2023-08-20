@@ -15,6 +15,9 @@ class World {
     statusBarBottle = new statusbarBottle();
     statusBarEndboss = new statusbarEndboss();
     coinCount = 0;
+    grabBottle_sound = new Audio('audio/grab_bottle.mp3');
+    smashBottle_sound = new Audio('audio/smash bottle.mp3');
+    coin_sound = new Audio('audio/coin sound.mp3');
 
 
 
@@ -60,6 +63,7 @@ class World {
             if (throwable.isColliding(this.endboss)) {
                 this.statusBarEndboss.healthEndboss -= 30;
                 this.endboss.bossHit();
+                this.smashBottle_sound.play();
                 this.statusBarEndboss.setPercantage(this.statusBarEndboss.healthEndboss);
                 if (this.statusBarEndboss.healthEndboss <= 0 ) {
                     this.statusBarEndboss.healthEndboss = 0;
@@ -87,13 +91,15 @@ class World {
         this.level.enemies.forEach((enemy) => {
             let isCollidingOnX = this.character.x + this.character.width > enemy.x &&
                 this.character.x < enemy.x + enemy.width;
-            let isCollidingOnY = this.character.y == 75;
-            if (isCollidingOnX && isCollidingOnY) {
+            let isAboveChicken = this.character.y + this.character.height <= enemy.y;
+            let isFallingDown = this.character.speedY > 0;
+            if (isCollidingOnX && isAboveChicken && isFallingDown ) {
                 this.killEnemy(enemy);
                 this.character.velocityY = 0; 
             }
         });
     }
+    
 
 
 
@@ -102,11 +108,13 @@ class World {
         this.level.collectableObjects.forEach((object) => {
             if (this.character.isColliding(object)) {
                 if (object.img.currentSrc.includes('coin')) {
+                    this.coin_sound.play();
                     this.statusBarCoin.coinCount++;
                     this.removeCollectable(object);
                     this.statusBarCoin.setPercantage(this.statusBarCoin.coinCount);
                 } else if (object.img.currentSrc.includes('bottle')) {
                     this.statusBarBottle.bottleCount++;
+                   this.grabBottle_sound.play();
                     this.removeCollectable(object);
                     this.statusBarBottle.setPercantage(this.statusBarBottle.bottleCount);
                 }
@@ -220,4 +228,23 @@ class World {
         mo.x = mo.x * -1;
         this.ctx.restore();
     }
+
+    reset() {
+        this.level = level1;
+        this.character = new Character();
+        this.enemies = [...level1.enemies];
+        this.endboss = new Endboss();
+        this.clouds = [...level1.clouds];
+        this.backgroundObjects = [...level1.backgroundObjects];
+        this.throwableObjects = [];
+        this.collectableObjects = [...level1.collectableObjects];
+        this.camera_x = 0;
+        this.statusBarHealth = new statusbarHealth();
+        this.statusBarCoin = new statusbarCoin();
+        this.statusBarBottle = new statusbarBottle();
+        this.statusBarEndboss = new statusbarEndboss();
+        this.coinCount = 0;
+        this.setWorld();
+    }
+    
 }

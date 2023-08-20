@@ -82,7 +82,8 @@ class Endboss extends MovableObject {
         setInterval(() => {
             if (this.bossIsDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
-                endGame();
+                this.clearAllIntervals();
+                endGameWin();
             } else if (this.bossIsHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } else if (i < 40) {
@@ -103,7 +104,9 @@ class Endboss extends MovableObject {
     }
     
     
-
+    clearAllIntervals() {
+        for (let i = 1; i < 9999; i++) window.clearInterval(i);
+      }
 
 };
 
