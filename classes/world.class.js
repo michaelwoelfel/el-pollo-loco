@@ -53,7 +53,8 @@ class World {
         this.checkCollisionEnemy();
         this.checkCollisionCollectable();
         this.checkIfChickenIsDead();
-        this.checkCollisionBottleEndboss() 
+        this.checkCollisionBottleEndboss();
+        this.checkCollisionBottleChicken();
 
     }
 
@@ -63,6 +64,7 @@ class World {
             if (throwable.isColliding(this.endboss)) {
                 this.statusBarEndboss.healthEndboss -= 30;
                 this.endboss.bossHit();
+                this.throwableObjects.splice(0,1);
                 if (!media_muted) {this.smashBottle_sound.play();} 
                 this.statusBarEndboss.setPercantage(this.statusBarEndboss.healthEndboss);
                 if (this.statusBarEndboss.healthEndboss <= 0 ) {
@@ -71,6 +73,23 @@ class World {
             }
         });
     }
+
+
+    checkCollisionBottleChicken() {
+        this.throwableObjects.forEach((throwable, throwableIndex) => {
+            this.enemies.forEach((enemy) => {
+                if (throwable.isColliding(enemy)) {
+                    console.log('Huhn getroffen');
+                    this.killEnemy(enemy);
+                    this.throwableObjects.splice(throwableIndex, 1);
+                    if (!media_muted) {
+                        this.smashBottle_sound.play();
+                    }
+                }
+            });
+        });
+    }
+    
     
        
     

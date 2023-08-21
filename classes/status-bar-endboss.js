@@ -39,11 +39,11 @@ class statusbarEndboss extends DrawableObject {
         } else if (this.healthEndboss > 80) {
             return 4;
 
-        } else if (this.healthEndboss > 6) {
+        } else if (this.healthEndboss > 60) {
             return 3;
-        } else if (this.healthEndboss > 4) {
+        } else if (this.healthEndboss > 40) {
             return 2;
-        } else if (this.healthEndboss > 2) {
+        } else if (this.healthEndboss > 20) {
             return 1;
         } else if (this.healthEndboss >= 0) {
             return 0;
