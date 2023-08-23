@@ -55,6 +55,7 @@ class World {
         this.checkIfChickenIsDead();
         this.checkCollisionBottleEndboss();
         this.checkCollisionBottleChicken();
+        this.checkCollisionEndboss();
 
     }
 
@@ -79,7 +80,7 @@ class World {
         this.throwableObjects.forEach((throwable, throwableIndex) => {
             this.enemies.forEach((enemy) => {
                 if (throwable.isColliding(enemy)) {
-                    console.log('Huhn getroffen');
+                    console.log('Huhn getroffen')
                     this.killEnemy(enemy);
                     this.throwableObjects.splice(throwableIndex, 1);
                     if (!media_muted) {
@@ -96,7 +97,6 @@ class World {
     
 
     checkCollisionEnemy() {
-
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && !this.character.isAboveGround() && !this.checkIfChickenIsDead()) {
                 this.character.hit();
@@ -104,6 +104,18 @@ class World {
             }
         });
     }
+
+
+
+        checkCollisionEndboss() {
+
+        if (this.character.isColliding(this.endboss)) {
+            console.log(this.character.isColliding(this.endboss));
+            this.character.hit();
+            this.statusBarHealth.setPercantage(this.character.energy);
+        }
+    }
+
 
 
     checkIfChickenIsDead() {
