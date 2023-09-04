@@ -46,7 +46,7 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
-        }, 200);
+        }, 100);
     }
 
     checkCollisions() {
@@ -120,15 +120,28 @@ class World {
 
     checkIfChickenIsDead() {
         this.level.enemies.forEach((enemy) => {
-            let isCollidingOnX = this.character.x + this.character.width > enemy.x && 
-                                 this.character.x < enemy.x + enemy.width;
-                                 
-            let isAboveEnemy = this.character.y + this.character.height <= enemy.y;
-            let isFallingDown = this.character.speedY > 0;
+            if (!enemy.isDead) { // Zustandsüberprüfung
+                return;
+            }
+    
+            // Kollisionsabfrage auf X-Achse mit Toleranz
+            let tolerance = 5;
+            let isCollidingOnX = (this.character.x + this.character.width > enemy.x + tolerance) &&
+                                  (this.character.x + tolerance < enemy.x + enemy.width);
+            
+            // Kollisionsabfrage auf Y-Achse (von oben)
+            let isAboveEnemy = (this.character.y + this.character.height < enemy.y + tolerance);
+    
+            // Überprüfung der Fallgeschwindigkeit
+            let isFallingDown = (this.character.speedY > 0);
+    
+            // Debug-Ausgabe
+            console.log("Character X,Y:", this.character.x, this.character.y);
+            console.log("Enemy X,Y:", enemy.x, enemy.y);
     
             if (isCollidingOnX && isAboveEnemy && isFallingDown) {
                 this.killEnemy(enemy);
-                this.character.velocityY = 0;
+                this.character.speedY = 0; // Stoppen des freien Falls
             }
         });
     }

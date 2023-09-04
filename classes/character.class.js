@@ -111,7 +111,7 @@ animate() {
 
 interactiveAnimations() {
     setInterval(() =>{
-        if (this.isHurt() && !this.isDead()) {
+        if (this.isHurt() && !this.isDead() && !this.isAboveGround()) {
             this.playAnimation(this.IMAGES_HURT);
         }
        else if (this.isDead()) {

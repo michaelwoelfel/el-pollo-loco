@@ -18,6 +18,30 @@ body {
     margin: 0;
 }
 
+#left {
+    width: 50px;
+    height: 50px;
+    padding: 5px;
+}
+
+#right {
+    width: 50px;
+    height: 50px;
+    padding: 5px;
+}
+#jump{
+    width: 50px;
+    height: 50px;
+    padding: 5px;
+}
+#throw {
+    width: 50px;
+    height: 50px;
+    padding: 5px;
+}
+
+
+
 #fullscreen {
     display: flex;
     align-items: center;
@@ -57,7 +81,7 @@ canvas {
 
 .buttoncontainer-bottom {
     position: absolute;
-    top: 90%;
+    top: 89%;
     display: flex;
     justify-content: space-between;
     width: 40%;
@@ -79,6 +103,14 @@ canvas {
     height: 480px;
     top: 16%;
     border-radius: 10px;
+}
+
+#startimage:-webkit-full-screen {
+    top: 20%;
+}
+
+#startimage:fullscreen {
+    top: 20%;
 }
 
 .keydescription {
@@ -142,7 +174,31 @@ canvas {
     border-radius: 10px;
     justify-content: center;
     display: flex;
-    
+}
+
+#endImageContainer:fullscreen {
+    top: 20%;
+}
+
+.container-right {
+   gap: 10px;
+   position: absolute;
+   right: -350px;
+   top: -15px;
+}
+
+.container-right-top {
+    display: flex;
+    gap: 10px;
+    position: absolute;
+    right: -350px;
+    top: -10px;
+}
+
+.buttoncontainer-top{
+    z-index: 3;
+    position: absolute;
+    left: 50%;
 }
 
 #endImage1{
@@ -173,6 +229,8 @@ canvas {
 @media only screen and (max-width: 720px) {
     canvas {
        width: 100%;
+       height: 400px;
+       right: 50%;
     }
 
     #endImageContainer {
@@ -181,14 +239,52 @@ canvas {
 
     #startimage {
         width: 100%;
-        top: 12.5%;
+        top: 16%;
     }
+
+    #endImage1 {
+        width: 100%;
+    }
+    #endImage2 {
+        width: 100%;
+    }
+
+
+   
 
     #startbutton {
         top: 20%;
     }
     h1 {
         display: none;
+    }
+
+    .container-right {
+        gap: 10px;
+        position: absolute;
+        right: -10px;
+        top: -50px;
+        
+     }
+
+     .keydescription {
+        
+     }
+
+     .containerleft {
+        display: flex;
+        gap: 10px;
+        position: absolute;
+        left: -10px;
+        top: -50px;
+        
+     }
+
+
+     .container-right-top {
+       
+        right: -70px;
+        top: -100px;
     }
 
     body {
@@ -215,10 +311,30 @@ canvas {
 }
 
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 500px) {
     .buttoncontainer-bottom {
         display: flex;
         width: 90%;
+        
+    }
+
+
+    .keydescription {
+        display: none;
     }
 }
+
+
+@media only screen and (max-width: 500px) {
+    
+    .keydescription {
+        display: none;
+    }
+
+  
+}
+
+
+
+
 
