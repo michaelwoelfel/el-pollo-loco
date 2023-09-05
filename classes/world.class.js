@@ -46,13 +46,18 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
-        }, 100);
+        }, 200);
+
+        setInterval(() => {
+            this.checkIfChickenIsDead();
+           
+        }, 1);
     }
 
     checkCollisions() {
         this.checkCollisionEnemy();
         this.checkCollisionCollectable();
-        this.checkIfChickenIsDead();
+        
         this.checkCollisionBottleEndboss();
         this.checkCollisionBottleChicken();
         this.checkCollisionEndboss();
