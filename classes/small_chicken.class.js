@@ -67,14 +67,15 @@ class smallChicken  extends MovableObject{
         }
     
         die() {
+            if (!media_muted) {
+                this.chickenDeadSound.play();
+            }
             clearInterval(this.walkingInterval);  
             clearInterval(this.deathInterval); 
             this.deathInterval = setInterval(() => {
                 this.playAnimation(this.IMAGES_DEAD);
             }, 100);
-            if (!media_muted) {
-                this.chickenDeadSound.play();
-            }
+          
            
         }
         

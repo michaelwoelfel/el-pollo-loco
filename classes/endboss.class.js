@@ -4,6 +4,8 @@ class Endboss extends MovableObject {
     height = 300;
     width = 300;
     hadFirstContact = false;
+   endboss_sound = new Audio('audio/endboss.mp3');
+   endboss_dies = new Audio('audio/endboss.mp3');
 
     currentImage = 0;
     
@@ -53,6 +55,8 @@ class Endboss extends MovableObject {
       
     ]
 
+   
+
 
 
 
@@ -78,36 +82,53 @@ class Endboss extends MovableObject {
     }
     
     animate() {
-        let i = 40;
+        let i = 0;
+        let soundPlayed = false;
+        let attackCount = 0;
+        let inAlertState = true; // Zustandsvariable für den Alert-Status
+    
         setInterval(() => {
             if (this.bossIsDead()) {
-                console.log(this.bossIsDead());
+                if (!media_muted && !soundPlayed) {
+                    this.endboss_dies.play();
+                    soundPlayed = true;
+                }
                 this.playAnimation(this.IMAGES_DEAD);
                 setTimeout(() => {
                     endGameWin();
                 }, 1500);
-              
-            } if (this.bossIsHurt() && !this.bossIsDead()) {
+            } else if (this.bossIsHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
-            } else if (i < 10 && !this.bossIsDead()) {
-                this.playAnimation(this.IMAGES_ALERT);
-               
-                setTimeout(() => {
-                    this.playAnimation(this.IMAGES_ATTACK);
-                }, 3000);
+                if (!media_muted) {
+                    this.endboss_dies.play(); }
             } else {
-               
-            }
+                if (inAlertState) {
+                    if (i < 10) {
+                        this.playAnimation(this.IMAGES_ALERT);
+                        i++;
+                    } else {
+                        inAlertState = false;
+                        i = 0;
+                    }
+                } else {
+                    if (attackCount < 2) {
+                        this.playAnimation(this.IMAGES_ATTACK);
+                        attackCount++;
+                    } else {
+                        inAlertState = true;
+                        attackCount = 0;
+                    }
+                }
     
-            if (this.world.character.x >= 1300 && !this.bossIsDead()) {
-                i = 0;
-                
-            } else {
-                i++;
+                if (this.world.character.x >= 1300 && !this.hadFirstContact) {
+                    i = 0;
+                    inAlertState = true;
+                    this.hadFirstContact = true;
+                }
             }
         }, 100);
     }
-
+    
     moveBossLeft() {
         this.x -= 10;
         this.otherDirection = false;

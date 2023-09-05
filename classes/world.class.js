@@ -34,6 +34,7 @@ class World {
         this.draw()
         this.run();
         this.setWorld();
+        this.lastKillTime = null;
 
 
 
@@ -50,16 +51,15 @@ class World {
 
         setInterval(() => {
             this.checkIfChickenIsDead();
-           
+            this.checkCollisionBottleChicken();
+
         }, 1);
     }
 
     checkCollisions() {
         this.checkCollisionEnemy();
         this.checkCollisionCollectable();
-        
         this.checkCollisionBottleEndboss();
-        this.checkCollisionBottleChicken();
         this.checkCollisionEndboss();
 
     }
@@ -70,10 +70,10 @@ class World {
             if (throwable.isColliding(this.endboss)) {
                 this.statusBarEndboss.healthEndboss -= 30;
                 this.endboss.bossHit();
-                this.throwableObjects.splice(0,1);
-                if (!media_muted) {this.smashBottle_sound.play();} 
+                this.throwableObjects.splice(0, 1);
+                if (!media_muted) { this.smashBottle_sound.play(); }
                 this.statusBarEndboss.setPercantage(this.statusBarEndboss.healthEndboss);
-                if (this.statusBarEndboss.healthEndboss <= 0 ) {
+                if (this.statusBarEndboss.healthEndboss <= 0) {
                     this.statusBarEndboss.healthEndboss = 0;
                 }
             }
@@ -85,7 +85,6 @@ class World {
         this.throwableObjects.forEach((throwable, throwableIndex) => {
             this.enemies.forEach((enemy) => {
                 if (throwable.isColliding(enemy)) {
-                    console.log('Huhn getroffen')
                     this.killEnemy(enemy);
                     this.throwableObjects.splice(throwableIndex, 1);
                     if (!media_muted) {
@@ -95,11 +94,11 @@ class World {
             });
         });
     }
-    
-    
-       
-    
-    
+
+
+
+
+
 
     checkCollisionEnemy() {
         this.level.enemies.forEach((enemy) => {
@@ -112,10 +111,9 @@ class World {
 
 
 
-        checkCollisionEndboss() {
+    checkCollisionEndboss() {
 
         if (this.character.isColliding(this.endboss)) {
-            console.log(this.character.isColliding(this.endboss));
             this.character.hit();
             this.statusBarHealth.setPercantage(this.character.energy);
         }
@@ -125,33 +123,23 @@ class World {
 
     checkIfChickenIsDead() {
         this.level.enemies.forEach((enemy) => {
-            if (!enemy.isDead) { // Zustandsüberprüfung
+            if (!enemy.isDead) {
                 return;
             }
-    
-            // Kollisionsabfrage auf X-Achse mit Toleranz
+          
             let tolerance = 5;
             let isCollidingOnX = (this.character.x + this.character.width > enemy.x + tolerance) &&
-                                  (this.character.x + tolerance < enemy.x + enemy.width);
-            
-            // Kollisionsabfrage auf Y-Achse (von oben)
-            let isAboveEnemy = (this.character.y + this.character.height < enemy.y + tolerance);
-    
-            // Überprüfung der Fallgeschwindigkeit
+                (this.character.x + tolerance < enemy.x + enemy.width);
+            let isAboveEnemy = (this.character.y + this.character.height  == enemy.y + 60 );
             let isFallingDown = (this.character.speedY > 0);
-    
-            // Debug-Ausgabe
-            console.log("Character X,Y:", this.character.x, this.character.y);
-            console.log("Enemy X,Y:", enemy.x, enemy.y);
-    
             if (isCollidingOnX && isAboveEnemy && isFallingDown) {
                 this.killEnemy(enemy);
-                this.character.speedY = 0; // Stoppen des freien Falls
+                
             }
         });
     }
-    
-    
+
+
 
 
 
@@ -160,13 +148,13 @@ class World {
         this.level.collectableObjects.forEach((object) => {
             if (this.character.isColliding(object)) {
                 if (object.img.currentSrc.includes('coin')) {
-                    if (!media_muted) {this.coin_sound.play();  } 
+                    if (!media_muted) { this.coin_sound.play(); }
                     this.statusBarCoin.coinCount++;
                     this.removeCollectable(object);
                     this.statusBarCoin.setPercantage(this.statusBarCoin.coinCount);
                 } else if (object.img.currentSrc.includes('bottle')) {
-                    this.statusBarBottle.bottleCount++; 
-                   if (!media_muted) {this.grabBottle_sound.play();  } 
+                    this.statusBarBottle.bottleCount++;
+                    if (!media_muted) { this.grabBottle_sound.play(); }
                     this.removeCollectable(object);
                     this.statusBarBottle.setPercantage(this.statusBarBottle.bottleCount);
                 }
@@ -180,14 +168,18 @@ class World {
     }
 
     killEnemy(enemy) {
+        const currentTime = new Date().getTime();
+        if (this.lastKillTime && currentTime - this.lastKillTime < 1000) {
+            return;
+        }
+        this.lastKillTime = currentTime;
         enemy.die();
-
         setTimeout(() => {
             let index = this.level.enemies.indexOf(enemy);
             this.level.enemies.splice(index, 1);
-        }, 2000);  
-        
+        }, 1000);
     }
+
 
     checkThrowObjects() {
         if (this.keyboard.THROW && this.statusBarBottle.bottleCount > 0) {
@@ -206,14 +198,14 @@ class World {
                 enemy.startAnimationChicken();
             }
         });
-        this.endboss.setWorld(this); 
-        if (this.endboss instanceof Endboss) { 
+        this.endboss.setWorld(this);
+        if (this.endboss instanceof Endboss) {
             this.endboss.startAnimation();
         }
-    
+
         this.character.setWorld(this);
     }
-    
+
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -235,7 +227,7 @@ class World {
         this.addToMap(this.statusBarHealth);
         this.addToMap(this.statusBarCoin);
         this.addToMap(this.statusBarBottle);
-     
+
         this.ctx.translate(this.camera_x, 0);
         this.addObjectstoMap(this.throwableObjects);
         this.addToMap(this.statusBarEndboss);
@@ -260,7 +252,7 @@ class World {
 
         }
         mo.draw(this.ctx);
-        mo.drawFrame(this.ctx);
+        
 
         if (mo.otherDirection) {
             this.flipImageBack(mo);
@@ -298,5 +290,5 @@ class World {
         this.coinCount = 0;
         this.setWorld();
     }
-    
+
 }
