@@ -62,7 +62,7 @@ class Endboss extends MovableObject {
 
     constructor(){
         super().loadImage('../img/4_enemie_boss_chicken/2_alert/G5.png');
-        this.x = 1700;
+        this.x = 1500;
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_ALERT);
         this.loadImages(this.IMAGES_ATTACK);
@@ -85,48 +85,79 @@ class Endboss extends MovableObject {
         let i = 0;
         let soundPlayed = false;
         let attackCount = 0;
-        let inAlertState = true; // Zustandsvariable für den Alert-Status
-    
+        let inAlertState = true;
         setInterval(() => {
-            if (this.bossIsDead()) {
-                if (!media_muted && !soundPlayed) {
-                    this.endboss_dies.play();
-                    soundPlayed = true;
-                }
-                this.playAnimation(this.IMAGES_DEAD);
-                setTimeout(() => {
-                    endGameWin();
-                }, 1500);
-            } else if (this.bossIsHurt()) {
-                this.playAnimation(this.IMAGES_HURT);
-                if (!media_muted) {
-                    this.endboss_dies.play(); }
-            } else {
-                if (inAlertState) {
-                    if (i < 10) {
-                        this.playAnimation(this.IMAGES_ALERT);
-                        i++;
-                    } else {
-                        inAlertState = false;
-                        i = 0;
-                    }
-                } else {
-                    if (attackCount < 2) {
-                        this.playAnimation(this.IMAGES_ATTACK);
-                        attackCount++;
-                    } else {
-                        inAlertState = true;
-                        attackCount = 0;
-                    }
-                }
-    
-                if (this.world.character.x >= 1300 && !this.hadFirstContact) {
-                    i = 0;
-                    inAlertState = true;
-                    this.hadFirstContact = true;
-                }
-            }
+            this.mainAnimationLoop(i, soundPlayed, attackCount, inAlertState);
         }, 100);
+    }
+    
+    mainAnimationLoop(i, soundPlayed, attackCount, inAlertState) {
+        if (this.bossIsDead()) {
+            this.handleBossDeath(soundPlayed);
+        } else if (this.bossIsHurt()) {
+            this.handleBossHurt();
+        } else {
+            this.handleBossStates(i, attackCount, inAlertState);
+        }
+    }
+    
+    handleBossDeath(soundPlayed) {
+        if (!media_muted && !soundPlayed) {
+            this.endboss_dies.play();
+            soundPlayed = true;
+        }
+        this.bossDies();
+    }
+    
+    handleBossHurt() {
+        this.playAnimation(this.IMAGES_HURT);
+        if (!media_muted) { this.endboss_dies.play(); }
+    }
+    
+    handleBossStates(i, attackCount, inAlertState) {
+        if (inAlertState) {
+            this.handleAlertState(i, attackCount);
+        } else {
+            this.handleAttackState(i, attackCount);
+        }
+    }
+    
+    handleAlertState(i, attackCount) {
+        if (i < 10) {
+            this.playAnimation(this.IMAGES_ALERT);
+            i++;
+        } else {
+            this.switchToAttack(i, attackCount);
+        }
+    }
+    
+    handleAttackState(i, attackCount) {
+        if (attackCount < 2) {
+            this.playAnimation(this.IMAGES_ATTACK);
+            attackCount++;
+        } else {
+            this.switchToAlert(i, attackCount);
+        }
+    }
+    
+    switchToAlert(i, attackCount) {
+        i = 0;
+        inAlertState = true;
+        attackCount = 0;
+    }
+    
+    switchToAttack(i, attackCount) {
+        i = 0;
+        inAlertState = false;
+        attackCount = 0;
+    }
+    
+
+    bossDies() {
+        this.playAnimation(this.IMAGES_DEAD);
+        setTimeout(() => {
+            endGameWin();
+        }, 1500);
     }
     
     moveBossLeft() {

@@ -17,7 +17,7 @@ class statusbarEndboss extends DrawableObject {
         super().loadImage('../img/7_statusbars/2_statusbar_endboss/green.png');
         this.loadImages(this.IMAGES_STATUSBAR_ENDBOSS);
         
-        this.x = 1700;
+        this.x = 1600;
         this.y = 100;
         this.width = 150;
         this.height = 50;

@@ -1,26 +1,48 @@
 <!DOCTYPE html>
 <html translate="no" lang="en">
+
 <head>
     <meta charset="UTF-8">
     <link rel="icon" type="image/x-icon" href="favicon.jpg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-   
-    
+
+
     <title>El Pollo Loco</title>
 </head>
-<body >
+
+<body>
     <div id="fullscreen">
-    <h1 onclick="initLevel()">El pollo Loco</h1>
-    <div class="buttoncontainer-top"><div id="containerrighttop" class="container-right-top"><img onclick="fullscreen()" id="fullscreenimg" class="button" src='img/fullscreen.png'><img onclick="muteSound()"  id="mute" class="button" src='img/sound_on.png'></div></div>
-    <canvas id="canvas" width="720" height="480">
-    </canvas>
-    <img  id="startimage" src="../img/9_intro_outro_screens/start/startscreen_2.png">
-    <button onclick="init()" id="startbutton"><h2>Start game</h2></button>
-    <div id="endImageContainer" class="d-none"><button onclick="restartGame()" id="restartButton"><h2>Back to Menu</h2></button><img id="endImage1" src="../img/5_background/first_half_background.png"><img id="endImage2"   src="../img/9_intro_outro_screens/game_over/game over!.png"></div>
-    <div class="buttoncontainer-bottom"><div class="containerleft"><img id="left" class="button" src='img/left.png'><img id="right" class="button" src='img/right.png'></div><div class="container-right"><img id="jump" class="button" src='img/up.png'><img id="throw" class="button" src='img/throw.png'></div></div>
-    <div class="keydescription"><span class="key">A</span><span>Left</span><span class="key">D</span><span>Right</span><span class="key">W</span><span>Jump</span><span class="key">E</span><span>Throw</span></div>
-</div>
+        <h1 onclick="initLevel()">El pollo Loco</h1>
+        <div class="buttoncontainer-top">
+            <div id="containerrighttop" class="container-right-top"><img onclick="openInfo()" id="infoimg"
+                    class="button" src='img/info.png'><img onclick="fullscreen()" id="fullscreenimg" class="button"
+                    src='img/fullscreen.png'><img onclick="muteSound()" id="mute" class="button" src='img/sound_on.png'>
+            </div>
+        </div>
+        <canvas id="canvas" width="720" height="480">
+        </canvas>
+        <img id="startimage" src="../img/9_intro_outro_screens/start/startscreen_2.png">
+        <button onclick="init()" id="startbutton">
+            <h2>Start game</h2>
+        </button>
+        <div id="endImageContainer" class="d-none"><button onclick="restartGame()" id="restartButton">
+                <h2>Back to Menu</h2>
+            </button><img id="endImage1" src="../img/5_background/first_half_background.png"><img id="endImage2"
+                src="../img/9_intro_outro_screens/game_over/game over!.png"></div>
+        <div class="buttoncontainer-bottom">
+            <div class="containerleft"><img id="left" class="button" src='img/left.png'><img id="right" class="button"
+                    src='img/right.png'></div>
+            <div class="container-right"><img id="jump" class="button" src='img/up.png'><img id="throw" class="button"
+                    src='img/throw.png'></div>
+        </div>
+        <div id="keys" class="keydescription">
+            <div class="closekeys"><img id="closeimg" onclick="closeInfo()" src="img/close.png"></div>
+            <div class="key1"><span class="key">A</span><span>Left</span></div>
+            <div class="key1"><span class="key">D</span><span>Right</span></div>
+            <div class="key1"><span class="key">W</span><span>Jump</span></div>
+            <div class="key1"><span class="key">E</span><span>Throw</span></div>
+        </div>
 </body>
 <script src="classes/drawable-object.class.js"></script>
 <script src="classes/movable-object.class.js"></script>

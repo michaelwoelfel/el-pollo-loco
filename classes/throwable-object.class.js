@@ -51,7 +51,7 @@ class bottle extends MovableObject {
         },50);
         setTimeout(() => {
             this.animateSplash();
-            this.smashBottle_sound.play();
+            if (!media_muted) {   this.smashBottle_sound.play();}
         }, 500);
   }
 

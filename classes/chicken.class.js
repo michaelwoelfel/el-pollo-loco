@@ -41,10 +41,8 @@ class Chicken  extends MovableObject{
         }
     
         animate() {
-            // Stellen Sie sicher, dass alte Animationen gestoppt werden
             clearInterval(this.walkingInterval);
             clearInterval(this.deathInterval);
-    
             if (!this.checkIfChickenIsDead()) {
                 this.walkingInterval = setInterval(() => {
                     this.moveLeft();
@@ -53,12 +51,10 @@ class Chicken  extends MovableObject{
                 this.deathInterval = setInterval(() => {
                     this.playAnimation(this.IMAGES_WALK);
                 }, 100);
-    
             } else {
                 this.deathInterval = setInterval(() => {
                   this.die();
-                }, 100);
-               
+                }, 100); 
             }
         }
     

@@ -123,10 +123,7 @@ class World {
 
     checkIfChickenIsDead() {
         this.level.enemies.forEach((enemy) => {
-            if (!enemy.isDead) {
-                return;
-            }
-          
+            if (!enemy.isDead) { return;}
             let tolerance = 5;
             let isCollidingOnX = (this.character.x + this.character.width > enemy.x + tolerance) &&
                 (this.character.x + tolerance < enemy.x + enemy.width);
@@ -146,21 +143,34 @@ class World {
 
     checkCollisionCollectable() {
         this.level.collectableObjects.forEach((object) => {
-            if (this.character.isColliding(object)) {
+            if (this.character.isCollidingFromAbove(object)) {
                 if (object.img.currentSrc.includes('coin')) {
-                    if (!media_muted) { this.coin_sound.play(); }
-                    this.statusBarCoin.coinCount++;
-                    this.removeCollectable(object);
-                    this.statusBarCoin.setPercantage(this.statusBarCoin.coinCount);
+                    this.collectCoin(object);
                 } else if (object.img.currentSrc.includes('bottle')) {
-                    this.statusBarBottle.bottleCount++;
-                    if (!media_muted) { this.grabBottle_sound.play(); }
-                    this.removeCollectable(object);
-                    this.statusBarBottle.setPercantage(this.statusBarBottle.bottleCount);
+                    this.collectBottle(object);
                 }
             }
         });
     }
+    
+    collectCoin(object) {
+        if (!media_muted) { 
+            this.coin_sound.play(); 
+        }
+        this.statusBarCoin.coinCount++;
+        this.removeCollectable(object);
+        this.statusBarCoin.setPercantage(this.statusBarCoin.coinCount);
+    }
+    
+    collectBottle(object) {
+        this.statusBarBottle.bottleCount++;
+        if (!media_muted) { 
+            this.grabBottle_sound.play(); 
+        }
+        this.removeCollectable(object);
+        this.statusBarBottle.setPercantage(this.statusBarBottle.bottleCount);
+    }
+    
 
     removeCollectable(object) {
         let index = this.level.collectableObjects.indexOf(object);
@@ -169,9 +179,8 @@ class World {
 
     killEnemy(enemy) {
         const currentTime = new Date().getTime();
-        if (this.lastKillTime && currentTime - this.lastKillTime < 1000) {
-            return;
-        }
+        if (this.lastKillTime && currentTime - this.lastKillTime < 100) {
+            return;}
         this.lastKillTime = currentTime;
         enemy.die();
         setTimeout(() => {
@@ -210,35 +219,27 @@ class World {
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0);
-
         this.addObjectstoMap(this.level.backgroundObjects, this.x);
         this.addObjectstoMap(this.enemies);
         this.addToMap(this.endboss);
-
         this.addToMap(this.character);
-
         this.addObjectstoMap(this.collectableObjects);
-
-
-
-
         this.addObjectstoMap(this.clouds);
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusBarHealth);
         this.addToMap(this.statusBarCoin);
         this.addToMap(this.statusBarBottle);
-
         this.ctx.translate(this.camera_x, 0);
         this.addObjectstoMap(this.throwableObjects);
         this.addToMap(this.statusBarEndboss);
         this.ctx.translate(-this.camera_x, 0);
-
-
         let self = this;
         requestAnimationFrame(function () {
             self.draw();
         });
     };
+
+   
 
 
     addObjectstoMap(objects) {

@@ -82,6 +82,13 @@ class MovableObject extends DrawableObject {
         this.y < mo.y + mo.height;
     }
 
+    isCollidingFromAbove(mo) {
+        return this.x  < mo.x + mo.width &&
+               this.x + this.width - 30 > mo.x &&
+               this.y + this.height > mo.y &&
+               this.y + 50  < mo.y;
+    }
+
     playAnimation(images) {
         let i = this.currentImage % images.length;
         let path = images[i];

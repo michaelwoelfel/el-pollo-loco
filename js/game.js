@@ -123,6 +123,17 @@ function fullscreen() {
     document.getElementById('containerrighttop').style.top = '-10px';
     document.getElementById('endImageContainer').style.top = '16%';
   }
+
+  function openInfo() {
+    document.getElementById('keys').classList.add('d-flex');
+    document.getElementById('keys').classList.add('showkeys');
+  }
+
+  function closeInfo() {
+    document.getElementById('keys').classList.remove('d-flex');
+    document.getElementById('keys').classList.remove('showkeys');
+
+  }
   
   
   
