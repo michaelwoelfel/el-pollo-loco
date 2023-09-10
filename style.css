@@ -107,7 +107,7 @@ canvas {
     position: absolute;
     width: 720px;
     height: 480px;
-    top: 16%;
+   
     border-radius: 10px;
 }
 
@@ -155,7 +155,7 @@ canvas {
 
 #startbutton {
     position: absolute;
-    top: 20%;
+    top: 18%;
     font-size: 25px;
     background-color: #F1BA1C;
     align-items: center;
@@ -193,7 +193,6 @@ canvas {
     position: absolute;
     width: 720px;
     height: 480px;
-    top: 16%;
     border-radius: 10px;
     justify-content: center;
     display: flex;
@@ -451,7 +450,7 @@ canvas {
     .container-right-top {
         position: fixed;
         top: 3%;
-        left: 5%; 
+        right: 5%; 
     }
     }
 
@@ -543,13 +542,6 @@ height: 100%;
    .buttoncontainer-bottom {
     display: flex;
    }
-  
-
-   
-
-  
-   
-   
   }
 
 

@@ -1,3 +1,8 @@
+/**
+ * Class representing the Keyboard state.
+ * This class contains flags to keep track of the state of various keys.
+ * @class
+ */
 class Keyboard {
     LEFT = false;
     RIGHT = false;
@@ -8,6 +13,11 @@ class Keyboard {
 
 }
 
+
+/**
+ * Keydown event listener.
+ * Sets corresponding flags based on the keys pressed.
+ */
 document.addEventListener('keydown', (event) => {
 if (event['key'] == "a" || event['key'] == "ArrowLeft" ) keyboard.LEFT = true;
 if (event['key'] == "d" || event['key'] == "ArrowRight" ) keyboard.RIGHT= true;
@@ -17,7 +27,10 @@ if (event['key'] == "e") keyboard.THROW = true;
 if (event['key'] == " ") keyboard.SPACE = true; 
 });
 
-
+/**
+ * Keyup event listener.
+ * Resets corresponding flags when keys are released.
+ */
 document.addEventListener('keyup', (event) => {
     if (event['key'] == "a" || event['key'] == "ArrowLeft" ) keyboard.LEFT = false;
     if (event['key'] == "d" || event['key'] == "ArrowRight" ) keyboard.RIGHT= false;
@@ -27,6 +40,10 @@ document.addEventListener('keyup', (event) => {
     if (event['key'] == " ") keyboard.SPACE = false; 
     });
 
+
+    /**
+ * Touch event listener for 'right' direction.
+ */
     document.getElementById('right').addEventListener('touchstart', (e) =>{
         e.preventDefault();
         keyboard.RIGHT = true;
@@ -37,6 +54,9 @@ document.addEventListener('keyup', (event) => {
     });
 
 
+    /**
+ * Touch event listener for 'left' direction.
+ */
     document.getElementById('left').addEventListener('touchstart', (e) =>{
         e.preventDefault();
         keyboard.LEFT = true;
@@ -47,6 +67,9 @@ document.addEventListener('keyup', (event) => {
     });
     
 
+    /**
+ * Touch event listener for 'jump' direction.
+ */
     document.getElementById('jump').addEventListener('touchstart', (e) =>{
         e.preventDefault();
         keyboard.UP = true;
@@ -57,6 +80,9 @@ document.addEventListener('keyup', (event) => {
     });
 
 
+    /**
+ * Touch event listener for 'throw' direction.
+ */
     document.getElementById('throw').addEventListener('touchstart', (e) =>{
         e.preventDefault();
         keyboard.THROW = true;

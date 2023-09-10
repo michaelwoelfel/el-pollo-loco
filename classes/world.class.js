@@ -1,5 +1,7 @@
+/**
+ * Class representing the game world.
+ */
 class World {
-
     level = level1;
     character = new Character();
     enemies = level1.enemies;
@@ -19,14 +21,11 @@ class World {
     smashBottle_sound = new Audio('audio/smash bottle.mp3');
     coin_sound = new Audio('audio/coin sound.mp3');
 
-
-
-
-
-
-
-
-
+    /**
+        * Initializes a new game world.
+        * @param {HTMLCanvasElement} canvas - The canvas to draw on.
+        * @param {Object} keyboard - The keyboard object to handle inputs.
+        */
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
@@ -35,36 +34,35 @@ class World {
         this.run();
         this.setWorld();
         this.lastKillTime = null;
-
-
-
     }
 
-
-
-
+    /**
+     * Game loop to run collision checks.
+     */
     run() {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
         }, 200);
-
         setInterval(() => {
             this.checkIfChickenIsDead();
             this.checkCollisionBottleChicken();
-
         }, 1);
     }
 
+  /**
+     * Check various types of collisions.
+     */
     checkCollisions() {
         this.checkCollisionEnemy();
         this.checkCollisionCollectable();
         this.checkCollisionBottleEndboss();
         this.checkCollisionEndboss();
-
     }
 
-
+ /**
+     * Check if bottle is colliding with end boss.
+     */
     checkCollisionBottleEndboss() {
         this.throwableObjects.forEach((throwable) => {
             if (throwable.isColliding(this.endboss)) {
@@ -80,7 +78,9 @@ class World {
         });
     }
 
-
+/**
+     * Check if bottle is colliding with chicken.
+     */
     checkCollisionBottleChicken() {
         this.throwableObjects.forEach((throwable, throwableIndex) => {
             this.enemies.forEach((enemy) => {
@@ -96,10 +96,9 @@ class World {
     }
 
 
-
-
-
-
+    /**
+     * Check if character is colliding width enemy
+     */
     checkCollisionEnemy() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && !this.character.isAboveGround() && !this.checkIfChickenIsDead()) {
@@ -109,10 +108,10 @@ class World {
         });
     }
 
-
-
+    /**
+     * Check if character is colliding with end boss.
+     */
     checkCollisionEndboss() {
-
         if (this.character.isColliding(this.endboss)) {
             this.character.hit();
             this.statusBarHealth.setPercantage(this.character.energy);
@@ -120,26 +119,20 @@ class World {
     }
 
 
-
     checkIfChickenIsDead() {
         this.level.enemies.forEach((enemy) => {
-            if (!enemy.isDead) { return;}
+            if (!enemy.isDead) { return; }
             let tolerance = 5;
             let isCollidingOnX = (this.character.x + this.character.width > enemy.x + tolerance) &&
                 (this.character.x + tolerance < enemy.x + enemy.width);
-            let isAboveEnemy = (this.character.y + this.character.height  == enemy.y + 60 );
+            let isAboveEnemy = (this.character.y + this.character.height == enemy.y + 60);
             let isFallingDown = (this.character.speedY > 0);
             if (isCollidingOnX && isAboveEnemy && isFallingDown) {
                 this.killEnemy(enemy);
-                
+
             }
         });
     }
-
-
-
-
-
 
     checkCollisionCollectable() {
         this.level.collectableObjects.forEach((object) => {
@@ -152,25 +145,24 @@ class World {
             }
         });
     }
-    
+
     collectCoin(object) {
-        if (!media_muted) { 
-            this.coin_sound.play(); 
+        if (!media_muted) {
+            this.coin_sound.play();
         }
         this.statusBarCoin.coinCount++;
         this.removeCollectable(object);
         this.statusBarCoin.setPercantage(this.statusBarCoin.coinCount);
     }
-    
+
     collectBottle(object) {
         this.statusBarBottle.bottleCount++;
-        if (!media_muted) { 
-            this.grabBottle_sound.play(); 
+        if (!media_muted) {
+            this.grabBottle_sound.play();
         }
         this.removeCollectable(object);
         this.statusBarBottle.setPercantage(this.statusBarBottle.bottleCount);
     }
-    
 
     removeCollectable(object) {
         let index = this.level.collectableObjects.indexOf(object);
@@ -179,8 +171,9 @@ class World {
 
     killEnemy(enemy) {
         const currentTime = new Date().getTime();
-        if (this.lastKillTime && currentTime - this.lastKillTime < 100) {
-            return;}
+        if (this.lastKillTime && currentTime - this.lastKillTime < 500) {
+            return;
+        }
         this.lastKillTime = currentTime;
         enemy.die();
         setTimeout(() => {
@@ -188,7 +181,6 @@ class World {
             this.level.enemies.splice(index, 1);
         }, 1000);
     }
-
 
     checkThrowObjects() {
         if (this.keyboard.THROW && this.statusBarBottle.bottleCount > 0) {
@@ -201,6 +193,7 @@ class World {
     }
 
     setWorld() {
+
         this.enemies.forEach(enemy => {
             enemy.setWorld(this);
             if (enemy instanceof Chicken || enemy instanceof smallChicken) {
@@ -211,11 +204,18 @@ class World {
         if (this.endboss instanceof Endboss) {
             this.endboss.startAnimation();
         }
-
         this.character.setWorld(this);
+        setInterval(() => {
+            this.statusBarEndboss.updateEndbossX(this.endboss.x);
+        }, 10);
+
     }
 
 
+
+      /**
+     * Main drawing loop for the game.
+     */
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0);
@@ -225,13 +225,13 @@ class World {
         this.addToMap(this.character);
         this.addObjectstoMap(this.collectableObjects);
         this.addObjectstoMap(this.clouds);
+        this.addToMap(this.statusBarEndboss);
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusBarHealth);
         this.addToMap(this.statusBarCoin);
         this.addToMap(this.statusBarBottle);
         this.ctx.translate(this.camera_x, 0);
         this.addObjectstoMap(this.throwableObjects);
-        this.addToMap(this.statusBarEndboss);
         this.ctx.translate(-this.camera_x, 0);
         let self = this;
         requestAnimationFrame(function () {
@@ -239,29 +239,35 @@ class World {
         });
     };
 
-   
-
-
+  /**
+     * Adds objects to the game map.
+     * @param {Array} objects - The objects to add.
+     */
     addObjectstoMap(objects) {
         objects.forEach(o => {
             this.addToMap(o);
         });
     }
+
+     /**
+     * Add a single object to the game map.
+     * @param {Object} mo - The movable object to add.
+     */
     addToMap(mo) {
         if (mo.otherDirection) {
             this.flipImage(mo);
-
         }
         mo.draw(this.ctx);
-        
-
         if (mo.otherDirection) {
             this.flipImageBack(mo);
-
-
         }
     }
 
+
+    /**
+     * Flip image for objects that need to change direction.
+     * @param {Object} mo - The movable object to flip.
+     */
     flipImage(mo) {
         this.ctx.save();
         this.ctx.translate(mo.width, 0);
@@ -269,27 +275,15 @@ class World {
         mo.x = mo.x * -1;
     }
 
+
+    
+    /**
+     * Flip image back to original orientation.
+     * @param {Object} mo - The movable object to flip back.
+     */
     flipImageBack(mo) {
         mo.x = mo.x * -1;
         this.ctx.restore();
-    }
-
-    reset() {
-        this.level = level1;
-        this.character = new Character();
-        this.enemies = [...level1.enemies];
-        this.endboss = new Endboss();
-        this.clouds = [...level1.clouds];
-        this.backgroundObjects = [...level1.backgroundObjects];
-        this.throwableObjects = [];
-        this.collectableObjects = [...level1.collectableObjects];
-        this.camera_x = 0;
-        this.statusBarHealth = new statusbarHealth();
-        this.statusBarCoin = new statusbarCoin();
-        this.statusBarBottle = new statusbarBottle();
-        this.statusBarEndboss = new statusbarEndboss();
-        this.coinCount = 0;
-        this.setWorld();
     }
 
 }
