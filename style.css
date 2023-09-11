@@ -116,13 +116,25 @@ canvas {
 }
 
 #startimage:fullscreen {
-    top: 20%;
+    top: 20% !important;
+}
+
+.top22 {
+    top: 22% !important;
+}
+
+.top25 {
+    top: 25% !important;
+}
+
+.top30 {
+    top: 30px !important;
 }
 
 .keydescription {
     display: flex;
     position: absolute;
-    bottom: 3%;
+    bottom: 0.1%;
     gap: 20px;
     align-items: center;
 
