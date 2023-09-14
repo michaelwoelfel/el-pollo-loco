@@ -42,6 +42,7 @@ class bottle extends MovableObject {
         this.x = x;
         this.y = y;
         this.throw(this.x,this.y);
+        this.smashBottle_sound.volume = 0.3;
     }
     
     /**

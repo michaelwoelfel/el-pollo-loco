@@ -1,5 +1,21 @@
 /**
  * Class representing the game world.
+ * 
+ * @property {Object} level - The current game level.
+ * @property {Character} character - The main game character.
+ * @property {Array} enemies - List of enemies in the current level.
+ * @property {Endboss} endboss - The end boss character of the level.
+ * @property {Array} clouds - List of cloud objects in the level.
+ * @property {Array} backgroundObjects - List of background objects in the level.
+ * @property {Array} throwableObjects - List of objects that can be thrown.
+ * @property {Array} collectableObjects - List of objects that can be collected.
+ * @property {Object} keyboard - The keyboard object to handle inputs.
+ * @property {number} camera_x - The camera's x-position.
+ * @property {statusbarHealth} statusBarHealth - Status bar for character's health.
+ * @property {statusbarCoin} statusBarCoin - Status bar for collected coins.
+ * @property {statusbarBottle} statusBarBottle - Status bar for bottles.
+ * @property {statusbarEndboss} statusBarEndboss - Status bar for end boss's health.
+ * @property {number} coinCount - The count of collected coins.
  */
 class World {
     level = level1;
@@ -20,6 +36,8 @@ class World {
     grabBottle_sound = new Audio('audio/grab_bottle.mp3');
     smashBottle_sound = new Audio('audio/smash bottle.mp3');
     coin_sound = new Audio('audio/coin sound.mp3');
+  
+
 
     /**
         * Initializes a new game world.
@@ -34,6 +52,9 @@ class World {
         this.run();
         this.setWorld();
         this.lastKillTime = null;
+        this.smashBottle_sound.volume = 0.3;
+        this.grabBottle_sound.volume = 0.3;
+        this.coin_sound.volume = 0.3;
     }
 
     /**
@@ -47,7 +68,7 @@ class World {
         setInterval(() => {
             this.checkIfChickenIsDead();
             this.checkCollisionBottleChicken();
-        }, 1);
+        }, 0.5);
     }
 
   /**
@@ -118,7 +139,9 @@ class World {
         }
     }
 
-
+/**
+     * Check if chicken enemies are dead.
+     */
     checkIfChickenIsDead() {
         this.level.enemies.forEach((enemy) => {
             if (!enemy.isDead) { return; }
@@ -134,6 +157,9 @@ class World {
         });
     }
 
+    /**
+     * Check if the main character is colliding with collectable objects.
+     */
     checkCollisionCollectable() {
         this.level.collectableObjects.forEach((object) => {
             if (this.character.isCollidingFromAbove(object)) {
@@ -146,6 +172,10 @@ class World {
         });
     }
 
+     /**
+    * Adds objects to the game map.
+    * @param {Array} objects - The objects to add.
+    */
     collectCoin(object) {
         if (!media_muted) {
             this.coin_sound.play();
@@ -154,7 +184,10 @@ class World {
         this.removeCollectable(object);
         this.statusBarCoin.setPercantage(this.statusBarCoin.coinCount);
     }
-
+/**
+     * Increment the bottle count and trigger related actions when a bottle is collected.
+     * @param {Object} object - The bottle object to be collected.
+     */
     collectBottle(object) {
         this.statusBarBottle.bottleCount++;
         if (!media_muted) {
@@ -164,14 +197,21 @@ class World {
         this.statusBarBottle.setPercantage(this.statusBarBottle.bottleCount);
     }
 
+    /**
+     * Remove a collectable object (like a bottle or coin) from the game world.
+     * @param {Object} object - The collectable object to be removed.
+     */
     removeCollectable(object) {
         let index = this.level.collectableObjects.indexOf(object);
         this.level.collectableObjects.splice(index, 1);
     }
-
+ /**
+     * Eliminate an enemy from the game world after ensuring there's a delay between successive kills.
+     * @param {Object} enemy - The enemy object to be killed.
+     */
     killEnemy(enemy) {
         const currentTime = new Date().getTime();
-        if (this.lastKillTime && currentTime - this.lastKillTime < 500) {
+        if (this.lastKillTime && currentTime - this.lastKillTime < 600) {
             return;
         }
         this.lastKillTime = currentTime;
@@ -182,6 +222,9 @@ class World {
         }, 1000);
     }
 
+    /**
+     * Check if the THROW key is pressed to throw a bottle and perform related actions.
+     */
     checkThrowObjects() {
         if (this.keyboard.THROW && this.statusBarBottle.bottleCount > 0) {
             let throwable = new bottle(this.character.x + 100, this.character.y + 100);
@@ -191,7 +234,9 @@ class World {
 
         }
     }
-
+  /**
+     * Initialize or reset the world by setting enemies, the end boss, and the character in their respective environments.
+     */
     setWorld() {
 
         this.enemies.forEach(enemy => {

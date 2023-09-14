@@ -20,6 +20,9 @@ class Endboss extends MovableObject {
     inAlertState = true;
     currentAction = 'idle';
     currentImage = 0;
+    
+    
+    
 
     IMAGES_WALKING = [
         'img/4_enemie_boss_chicken/1_walk/G1.png',
@@ -28,6 +31,8 @@ class Endboss extends MovableObject {
         'img/4_enemie_boss_chicken/1_walk/G4.png',
 
     ];
+
+  
 
     IMAGES_ALERT = [
         'img/4_enemie_boss_chicken/2_alert/G5.png',
@@ -83,6 +88,8 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
         this.speed = 0.15 + Math.random() * 0.25;
+        this.endboss_dies.volume = 0.3;
+        this.endboss_sound.volume = 0.3;
     }
 
     /**
@@ -132,6 +139,7 @@ class Endboss extends MovableObject {
     handleBossDeath() {
         if (!media_muted && !this.soundPlayed) {
             this.endboss_dies.play();
+
             this.soundPlayed = true; }
         this.bossDies();
     }
@@ -221,7 +229,7 @@ class Endboss extends MovableObject {
      * Moves the Endboss towards the character.
      */
     moveTowardsCharacter() {
-        this.x -= 2;
+        this.x -= 7;
         this.otherDirection = false;
     }
 }

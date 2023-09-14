@@ -1,9 +1,9 @@
 class Chicken extends MovableObject {
 
     otherDirection = false;
-    y = 370;
-    height = 60;
-    width = 60;
+    y = 330;
+    height = 100;
+    width = 100;
 
     currentImage = 0;
     chickenDeadSound = new Audio('audio/chicken_dies.mp3')
@@ -32,6 +32,7 @@ class Chicken extends MovableObject {
         this.loadImages(this.IMAGES_WALK);
         this.loadImages(this.IMAGES_DEAD);
         this.speed = 0.15 + Math.random() * 0.25;
+        this.chickenDeadSound.audio = 0.3;
     }
 
     walkingInterval = null;

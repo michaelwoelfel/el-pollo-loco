@@ -105,6 +105,8 @@ class Character extends MovableObject {
         this.y = 80;
         this.height = 300;
         this.width = 150;
+        this.walking_sound.volume = 0.3;
+        this.jump_sound.volume = 0.3;
     }
 
     /**

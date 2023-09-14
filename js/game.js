@@ -3,6 +3,8 @@ let world;
 let keyboard = new Keyboard();
 let theme = new Audio('audio/theme.mp3')
 let media_muted = false;
+theme.volume = 0.2;
+
 
 /**
  * Initialize the game.
@@ -60,7 +62,7 @@ function remove() {
 function muteSound() {
   let img = document.getElementById('mute');
   if (media_muted) {
-    theme.volume = 1;
+    theme.volume = 0.5;
     img.src = 'img/sound_on.png';
   } else {
     theme.volume = 0;

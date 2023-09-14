@@ -37,6 +37,7 @@ class smallChicken  extends MovableObject{
         this.loadImages(this.IMAGES_WALK);
         this.loadImages(this.IMAGES_DEAD);
         this.speed = 0.15 + Math.random() * 0.25;
+        this.chickenDeadSound.volume = 0.3;
        
     }
 

@@ -40,59 +40,63 @@ document.addEventListener('keyup', (event) => {
     if (event['key'] == " ") keyboard.SPACE = false; 
     });
 
+// Allgemeine Funktionen zur Steuerung
+function activateRight(e) {
+    e.preventDefault();
+    keyboard.RIGHT = true;
+}
+function deactivateRight(e) {
+    e.preventDefault();
+    keyboard.RIGHT = false;
+}
+function activateLeft(e) {
+    e.preventDefault();
+    keyboard.LEFT = true;
+}
+function deactivateLeft(e) {
+    e.preventDefault();
+    keyboard.LEFT = false;
+}
+function activateJump(e) {
+    e.preventDefault();
+    keyboard.UP = true;
+}
+function deactivateJump(e) {
+    e.preventDefault();
+    keyboard.UP = false;
+}
+function activateThrow(e) {
+    e.preventDefault();
+    keyboard.THROW = true;
+}
+function deactivateThrow(e) {
+    e.preventDefault();
+    keyboard.THROW = false;
+}
 
-    /**
- * Touch event listener for 'right' direction.
- */
-    document.getElementById('right').addEventListener('touchstart', (e) =>{
-        e.preventDefault();
-        keyboard.RIGHT = true;
-    });
-    document.getElementById('right').addEventListener('touchend', (e) =>{
-        e.preventDefault();
-        keyboard.RIGHT = false;
-    });
+// Event Listener für 'right' Richtung
+document.getElementById('right').addEventListener('touchstart', activateRight);
+document.getElementById('right').addEventListener('touchend', deactivateRight);
+document.getElementById('right').addEventListener('mousedown', activateRight);
+document.getElementById('right').addEventListener('mouseup', deactivateRight);
 
+// Event Listener für 'left' Richtung
+document.getElementById('left').addEventListener('touchstart', activateLeft);
+document.getElementById('left').addEventListener('touchend', deactivateLeft);
+document.getElementById('left').addEventListener('mousedown', activateLeft);
+document.getElementById('left').addEventListener('mouseup', deactivateLeft);
 
-    /**
- * Touch event listener for 'left' direction.
- */
-    document.getElementById('left').addEventListener('touchstart', (e) =>{
-        e.preventDefault();
-        keyboard.LEFT = true;
-    });
-    document.getElementById('left').addEventListener('touchend', (e) =>{
-        e.preventDefault();
-        keyboard.LEFT = false;
-    });
-    
+// Event Listener für 'jump' Richtung
+document.getElementById('jump').addEventListener('touchstart', activateJump);
+document.getElementById('jump').addEventListener('touchend', deactivateJump);
+document.getElementById('jump').addEventListener('mousedown', activateJump);
+document.getElementById('jump').addEventListener('mouseup', deactivateJump);
 
-    /**
- * Touch event listener for 'jump' direction.
- */
-    document.getElementById('jump').addEventListener('touchstart', (e) =>{
-        e.preventDefault();
-        keyboard.UP = true;
-    });
-    document.getElementById('jump').addEventListener('touchend', (e) =>{
-        e.preventDefault();
-        keyboard.UP = false;
-    });
+// Event Listener für 'throw' Richtung
+document.getElementById('throw').addEventListener('touchstart', activateThrow);
+document.getElementById('throw').addEventListener('touchend', deactivateThrow);
+document.getElementById('throw').addEventListener('mousedown', activateThrow);
+document.getElementById('throw').addEventListener('mouseup', deactivateThrow);
 
-
-    /**
- * Touch event listener for 'throw' direction.
- */
-    document.getElementById('throw').addEventListener('touchstart', (e) =>{
-        e.preventDefault();
-        keyboard.THROW = true;
-    });
-    document.getElementById('throw').addEventListener('touchend', (e) =>{
-        e.preventDefault();
-        keyboard.THROW = false;
-    });
-    
-    
-    
 
     
