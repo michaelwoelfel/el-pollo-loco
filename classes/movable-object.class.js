@@ -171,6 +171,33 @@ class MovableObject extends DrawableObject {
         return this.energyBoss <= 0;
     }
 
+    checkIfChickenIsDead() {
+        if (!this.level || !this.level.enemies) {
+            console.error('Level oder Enemies sind undefiniert');
+            return;
+        }
+        this.level.enemies.forEach((enemy) => {
+            // Ihr bestehender Code
+        });
+    }
+
+    checkIfChickenIsDead() {
+        if (!this.level || !this.level.enemies) {
+            return;
+        }
+        this.level.enemies.forEach((enemy) => {
+            if (!enemy.isDead) { return; }
+            let tolerance = 5;
+            let isCollidingOnX = (this.character.x + this.character.width > enemy.x + tolerance) &&
+                (this.character.x + tolerance < enemy.x + enemy.width);
+            let isAboveEnemy = (this.character.y + this.character.height == enemy.y + 60);
+            let isFallingDown = (this.character.speedY < 0);
+            if (isCollidingOnX && isAboveEnemy && isFallingDown) {
+                this.killEnemy(enemy);
+            }
+        });
+    }
+
 }
 
 

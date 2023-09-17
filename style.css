@@ -116,6 +116,14 @@ canvas {
     border-radius: 10px;
 }
 
+.closekeys {
+    display: flex;
+}
+
+#closeimg {
+    display: none;
+}
+
 #startimage:-webkit-full-screen {
     top: 20%;
 }
@@ -125,7 +133,7 @@ canvas {
 }
 
 .top22 {
-    top: 22% !important;
+    top: 27.8% !important;
 }
 
 .top25 {
@@ -161,7 +169,7 @@ canvas {
 
 .turndevice {
     height: 100vh;
-    width: 100vh;
+    width: 100%;
     gap: 10px;
     display: none;
     position: fixed;
@@ -637,7 +645,7 @@ height: 100%;
 
    .containerleft {
     position: fixed;
-    top: 82%;
+    top: 80%;
     left: 2%;
    }
 
@@ -648,7 +656,7 @@ height: 100%;
 
    .container-right {
     position: fixed;
-    top: 82%;
+    top: 80%;
     right: 2%;
    }
 

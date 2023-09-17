@@ -6,7 +6,7 @@
  * @extends MovableObject
  */
 class Endboss extends MovableObject {
-    x = 1500;
+    x = 3000;
     y = 150;
     height = 300;
     width = 300;
@@ -103,14 +103,14 @@ class Endboss extends MovableObject {
         */
     animate() {
         setInterval(() => {
-            if (this.world.character.x > 1200) {
+            if (this.world.character.x > 2400) {
                 this.firstContact = true;
             }
             if (this.firstContact == true) {
                 this.mainAnimationLoop();
             }
 
-        }, 100);
+        }, 200);
     }
 
     /**

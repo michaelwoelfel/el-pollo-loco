@@ -5,14 +5,14 @@
  */
 class smallChicken  extends MovableObject{
     otherDirection = false;
-    y = 370;
-    height = 60;
-    width = 60;
+    y = 350;
+    height = 80;
+    width = 80;
     currentImage = 0;
     chickenDeadSound = new Audio('audio/chicken_dies.mp3')
     walkingInterval = null;
     deathInterval = null;
-
+    static nextId = 5;  
     IMAGES_DEAD = [
         'img/3_enemies_chicken/chicken_small/2_dead/dead.png',
     ];
@@ -32,6 +32,7 @@ class smallChicken  extends MovableObject{
      */
     constructor(world){
         super().loadImage('img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
+        this.id = smallChicken.nextId++;  
         this.world = world;
         this.x = 500 + Math.random() * 1000;
         this.loadImages(this.IMAGES_WALK);
@@ -55,7 +56,6 @@ class smallChicken  extends MovableObject{
         animate() {
             clearInterval(this.walkingInterval);
             clearInterval(this.deathInterval);
-            if (!this.checkIfChickenIsDead()) {
                 this.walkingInterval = setInterval(() => {
                     this.moveLeft();
                     this.otherDirection = false;
@@ -63,22 +63,10 @@ class smallChicken  extends MovableObject{
                 this.deathInterval = setInterval(() => {
                     this.playAnimation(this.IMAGES_WALK);
                 }, 100);
-            } else {
-                this.deathInterval = setInterval(() => {
-                  this.die();
-                }, 100);
-               
-            }
         }
     
-         /**
-     * Checks if the chicken is dead.
-     * @returns {boolean} - True if the chicken is dead, otherwise false.
-     */
-        checkIfChickenIsDead() {
-            return this.world.checkIfChickenIsDead();
-        }
     
+       
          /**
      * Executes the dying animation and sound for the chicken.
      */

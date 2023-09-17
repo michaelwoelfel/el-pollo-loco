@@ -11,6 +11,8 @@ class Character extends MovableObject {
      * @type {number}
      */
     speed = 10;
+    
+    
 
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',
@@ -123,7 +125,7 @@ class Character extends MovableObject {
         */
     interactiveAnimations() {
         setInterval(() => {
-            if (this.isHurt() && !this.isDead() && !this.isAboveGround()) {
+            if (this.isHurt() && !this.isDead() && !this.isAboveGround() && !this.checkIfChickenIsDead()) {
                 this.playAnimation(this.IMAGES_HURT);
             }
             else if (this.isDead()) {

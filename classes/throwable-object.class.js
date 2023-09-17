@@ -82,6 +82,6 @@ class bottle extends MovableObject {
 animateSplash() {
     setInterval(() =>{
        this.playAnimation(this.IMAGES_BOTTLE_SPLASH);
-    },10);
+    },100);
 }
 }

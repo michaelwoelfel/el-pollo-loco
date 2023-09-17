@@ -28,8 +28,7 @@ class statusbarEndboss extends DrawableObject {
         this.width = 150;
         this.height = 50;
         this.x =  this.xEndboss;
-        console.log(this.x);
-        }, 10);
+        }, 60);
     }
 
     

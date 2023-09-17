@@ -35,9 +35,10 @@ class statusbarHealth extends DrawableObject {
      */
     setPercantage(percentage) {
         this.percentage = percentage;
-        if (this.percentage == 100) {
+        if (this.percentage < 100) {
         let path =  this.IMAGES_STATUSBAR_HEALTH[this.resolveImageIndex()];
         this.img = this.imageCache[path];
+      
     }
     }
 

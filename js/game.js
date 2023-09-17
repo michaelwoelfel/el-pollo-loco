@@ -2,7 +2,7 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let theme = new Audio('audio/theme.mp3')
-let media_muted = false;
+let media_muted;
 theme.volume = 0.2;
 
 
@@ -14,7 +14,7 @@ theme.volume = 0.2;
 async function init() {
   canvas = document.getElementById('canvas');
   world = new World(canvas, keyboard);
-  if (media_muted == false) {
+  if (!media_muted) {
     theme.play();
   }
   document.getElementById('startimage').classList.add('d-none');
@@ -88,7 +88,8 @@ function fullscreen() {
  * Opens fullscreen for the specified element.
  * @param {HTMLElement} elem - The element to display in fullscreen mode.
  */
-function openFullscreen(elem) {
+function openFullscreen(elem) 
+{
   if (elem.requestFullscreen) {
     elem.requestFullscreen();
     console.log(elem);
@@ -97,25 +98,27 @@ function openFullscreen(elem) {
   } else if (elem.msRequestFullscreen) { /* IE11 */
     elem.msRequestFullscreen();
   }
-  styleFullscreen();
+  
 }
 
 /**
 * Exits fullscreen mode.
 */
 function closeFullscreen() {
-  if (document.exitFullscreen) {
-    document.exitFullscreen();
-  } else if (document.webkitExitFullscreen) { /* Safari */
-    document.webkitExitFullscreen();
-  } else if (document.msExitFullscreen) { /* IE11 */
-    document.msExitFullscreen();
+  try {
+    if (document.fullscreenElement) {  
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.webkitExitFullscreen) { /* Safari */
+        document.webkitExitFullscreen();
+      } else if (document.msExitFullscreen) { /* IE11 */
+        document.msExitFullscreen();
+      }
+    }
+  } catch (e) {
   }
-  let fullscreenImage = document.getElementById('fullscreenimg');
-  fullscreenImage.removeEventListener("click", closeFullscreen); // Entfernen des alten Handlers
-  fullscreenImage.addEventListener("click", fullscreen); // Hinzufügen des neuen Handlers
-  removeStyleFullscreen();
 }
+
 
 
 document.addEventListener("fullscreenchange", function () {

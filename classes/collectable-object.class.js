@@ -27,7 +27,7 @@ class collectableObject extends MovableObject {
         this.imagePath = imagePath;
         this.loadImages(this.IMAGES_COIN);
         this.y = Math.floor(Math.random() * (500 - 300 + 1)) + 50;
-        this.x = 220 + Math.random() * 800;
+        this.x = 220 + Math.random() * 2600;
         this.height = 80;
         this.width = 80;
         if (this.imagePath.includes('coin')) {

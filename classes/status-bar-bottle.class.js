@@ -6,9 +6,9 @@ class statusbarBottle extends DrawableObject {
 
     bottleCount = 0;
     IMAGES_STATUSBAR_BOTTLE = [
+        'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/0.png',
         'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/20.png',
         'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/40.png',
-        'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/60.png',
         'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/60.png',
         'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/80.png',
         'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/100.png',
@@ -52,9 +52,9 @@ class statusbarBottle extends DrawableObject {
             return 3;
         } else if (this.bottleCount > 2) {
             return 2;
-        } else if (this.bottleCount > 1) {
+        } else if (this.bottleCount >= 1) {
             return 1;
-        } else if (this.bottleCount >= 0) {
+        } else if (this.bottleCount == 0) {
             return 0;
         }
     }
