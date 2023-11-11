@@ -213,7 +213,7 @@ canvas {
 
 #startbutton {
     position: absolute;
-    top: 1%;
+    top: 27vh;
     font-size: 25px;
     background-color: #F1BA1C;
     align-items: center;
@@ -252,6 +252,26 @@ canvas {
     cursor: pointer;
 }
 
+.imgtrophy {
+    z-index: 5;
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    bottom: 15%;
+   
+}
+
+.winning-span {
+      position: relative;
+      z-index: 20;
+      display: flex;
+      color: black;
+      font-family: 'Zabars';
+      top: 40%;
+      font-size: 5vw;
+  
+}
+
 #endImageContainer{
     position: absolute;
     width: 720px;
@@ -261,7 +281,20 @@ canvas {
     display: flex;
 }
 
+#endImageContainer-win{
+    position: absolute;
+    width: 720px;
+    height: 480px;
+    border-radius: 10px;
+    justify-content: center;
+    display: flex;
+}
+
 #endImageContainer:fullscreen {
+    top: 20%;
+}
+
+#endImageContainer-win:fullscreen {
     top: 20%;
 }
 

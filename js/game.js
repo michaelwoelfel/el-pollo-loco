@@ -33,7 +33,7 @@ async function endGameLoose() {
  * @async
  */
 async function endGameWin() {
-  document.getElementById('endImageContainer').classList.remove('d-none');
+  document.getElementById('endImageContainer-win').classList.remove('d-none');
 }
 
 
@@ -69,7 +69,6 @@ function muteSound() {
     img.src = 'img/sound.png';
   }
   media_muted = !media_muted;
-  console.log(media_muted);
 }
 
 
@@ -92,7 +91,6 @@ function openFullscreen(elem)
 {
   if (elem.requestFullscreen) {
     elem.requestFullscreen();
-    console.log(elem);
   } else if (elem.webkitRequestFullscreen) { /* Safari */
     elem.webkitRequestFullscreen();
   } else if (elem.msRequestFullscreen) { /* IE11 */

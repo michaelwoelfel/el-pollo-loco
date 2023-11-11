@@ -36,7 +36,7 @@ class statusbarCoin extends DrawableObject {
         if (this.coinCount == 0);
         let path =  this.IMAGES_STATUSBAR_COIN[this.resolveImageIndex()];
         this.img = this.imageCache[path];
-
+        document.getElementById("collectedCoins").innerHTML =  this.coinCount;
     }
 
   /**
@@ -44,7 +44,8 @@ class statusbarCoin extends DrawableObject {
      * @returns {number} - Index of the image to be used.
      */
     resolveImageIndex() {
-        if (this.coinCount == 10) {
+     
+        if (this.coinCount >= 10) {
             return 5;
         } else if (this.coinCount > 8) {
             return 4;
@@ -57,5 +58,7 @@ class statusbarCoin extends DrawableObject {
         } else if (this.coinCount >= 0) {
             return 0;
         }
-    }
+       
+    };
+   
 }

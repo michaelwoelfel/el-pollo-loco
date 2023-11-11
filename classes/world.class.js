@@ -143,7 +143,6 @@ class World {
         if (enemy.isDead) {  
             let tolerance = 5;
             let characterIsWalking = this.keyboard.isWalking;
-            console.log(characterIsWalking);
             let isCollidingOnX = (this.character.x + this.character.width > enemy.x + tolerance) &&
                 (this.character.x + tolerance < enemy.x + enemy.width);
             let isAboveEnemy = (this.character.y + this.character.height <= enemy.y );

@@ -12,8 +12,6 @@ class DrawableObject {
     height = 100;
     width = 100;
 
-
-
     /**
          * Loads a single image by its path.
          * @param {string} path - The path to the image file.
@@ -34,11 +32,6 @@ class DrawableObject {
         } catch (e) {
         }
     }
-
-
-
-
-
 
 
     /**

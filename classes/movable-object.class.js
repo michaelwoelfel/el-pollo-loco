@@ -43,7 +43,6 @@ class MovableObject extends DrawableObject {
      * @returns {boolean}
      */
     isAboveGround() {
-
         if (this instanceof bottle) {
             return true
         } else {
@@ -197,7 +196,6 @@ class MovableObject extends DrawableObject {
             }
         });
     }
-
 }
 
 
